@@ -40,6 +40,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #define RGBLIGHT_SAT_STEP 17
     #define RGBLIGHT_VAL_STEP 17
     #define RGBLIGHT_SLEEP
+    #define RGBLIGHT_TIMEOUT 60000
 #endif
 
 #define DYNAMIC_KEYMAP_LAYER_COUNT 6

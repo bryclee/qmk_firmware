@@ -114,3 +114,35 @@ bool caps_word_press_user(uint16_t keycode) {
             return false;  // Deactivate Caps Word.
     }
 }
+
+static uint16_t key_timer;
+static void refresh_rgb(void);
+static void check_rgb_timeout(void);
+bool is_rgb_timeout = false;
+
+void refresh_rgb() {
+    key_timer = timer_read();
+    if (is_rgb_timeout) {
+        is_rgb_timeout = false;
+        rgblight_wakeup();
+    }
+}
+
+void check_rgb_timeout() {
+    if (!is_rgb_timeout && timer_elapsed(key_timer) > RGBLIGHT_TIMEOUT) {
+        rgblight_suspend();
+        is_rgb_timeout = true;
+    }
+}
+
+void housekeeping_task_user(void) {
+    #ifdef RGBLIGHT_TIMEOUT
+    check_rgb_timeout();
+    #endif
+}
+
+void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
+    #ifdef RGBLIGHT_TIMEOUT
+    if (record->event.pressed) refresh_rgb();
+    #endif
+}
