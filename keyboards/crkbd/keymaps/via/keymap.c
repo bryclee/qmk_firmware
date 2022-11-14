@@ -19,13 +19,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include QMK_KEYBOARD_H
 
 enum crkbd_layers {
-    BASE,
+    BASE = 0,
     NAV,
     SYMBOL,
     MOUSE,
     ADJUST,
     NUMPAD
-}
+};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [BASE] = LAYOUT_split_3x6_3(
@@ -170,12 +170,18 @@ layer_state_t layer_state_set_user(layer_state_t state) {
         // case ADJUST:
         //     break;
         case NUMPAD:
-            rgblight_disable();
-            rgblight_setrgb_master(RGB_CHARTREUSE);
-            rgblight_setrgb_slave(RGB_BLACK);
+            rgb_mode = rgblight_get_mode();
+            rgblight_mode(RGBLIGHT_MODE_STATIC_LIGHT);
+            rgblight_setrgb(RGB_CHARTREUSE);
+            // rgblight_setrgb_master(RGB_CHARTREUSE);
+            // rgblight_setrgb_slave(RGB_BLACK);
             break;
         default:
-            rgblight_enable();
+            // rgblight_enable();
+            if (rgb_mode) {
+                rgblight_mode(rgb_mode);
+                rgb_mode = 0;
+            }
             break;
     }
     return state;
