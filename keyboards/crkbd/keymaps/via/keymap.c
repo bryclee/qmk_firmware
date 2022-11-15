@@ -128,7 +128,6 @@ static uint32_t key_timer;
 static void refresh_rgb(void);
 static void check_rgb_timeout(void);
 bool is_rgb_timeout = false;
-static uint8_t rgb_mode;
 
 void refresh_rgb() {
     key_timer = timer_read32();
@@ -157,32 +156,52 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
     #endif
 }
 
+const rgblight_segment_t PROGMEM rgb_numpad_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    {10, 4, HSV_CYAN},
+    {15, 6, HSV_CYAN},
+    {21, 1, 140, 220, 255},
+    {26, 1, 10, 255, 255}
+);
+
+const rgblight_segment_t* const PROGMEM rgb_layers[] = RGBLIGHT_LAYERS_LIST(
+    rgb_numpad_layer
+);
+
+void keyboard_post_init_user(void) {
+    rgblight_layers = rgb_layers;
+}
+
 layer_state_t layer_state_set_user(layer_state_t state) {
-    switch (get_highest_layer(state)) {
-        // case BASE:
-        //     break;
-        // case NAV:
-        //     break;
-        // case SYMBOL:
-        //     break;
-        // case MOUSE:
-        //     break;
-        // case ADJUST:
-        //     break;
-        case NUMPAD:
-            rgb_mode = rgblight_get_mode();
-            rgblight_mode(RGBLIGHT_MODE_STATIC_LIGHT);
-            rgblight_setrgb(RGB_CHARTREUSE);
-            // rgblight_setrgb_master(RGB_CHARTREUSE);
-            // rgblight_setrgb_slave(RGB_BLACK);
-            break;
-        default:
-            // rgblight_enable();
-            if (rgb_mode) {
-                rgblight_mode(rgb_mode);
-                rgb_mode = 0;
-            }
-            break;
-    }
+    rgblight_set_layer_state(0, layer_state_cmp(state, NUMPAD));
+
+    // switch (get_highest_layer(state)) {
+    //     // case BASE:
+    //     //     break;
+    //     // case NAV:
+    //     //     break;
+    //     // case SYMBOL:
+    //     //     break;
+    //     // case MOUSE:
+    //     //     break;
+    //     // case ADJUST:
+    //     //     break;
+    //     case NUMPAD:
+    //         rgb_mode = rgblight_get_mode();
+    //         rgblight_mode(RGBLIGHT_MODE_STATIC_LIGHT);
+    //         rgblight_setrgb(RGB_BLACK);
+    //         setrgb(RGB_AZURE, (LED_TYPE *)&led[10]);
+    //         setrgb(RGB_MAGENTA, (LED_TYPE *)&led[35]);
+    //         rgblight_set();
+    //         // rgblight_setrgb_master(RGB_CHARTREUSE);
+    //         // rgblight_setrgb_slave(RGB_BLACK);
+    //         break;
+    //     default:
+    //         // rgblight_enable();
+    //         if (rgb_mode) {
+    //             rgblight_mode(rgb_mode);
+    //             rgb_mode = 0;
+    //         }
+    //         break;
+    // }
     return state;
 }
