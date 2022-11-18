@@ -20,6 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 enum crkbd_layers {
     BASE = 0,
+    QWERTY,
     NAV,
     SYMBOL,
     MOUSE,
@@ -29,6 +30,19 @@ enum crkbd_layers {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [BASE] = LAYOUT_split_3x6_3(
+  //,-----------------------------------------------------.                    ,-----------------------------------------------------.
+       KC_TAB,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                         KC_Y,    KC_U,    KC_I,    KC_O,   KC_P,  KC_BSPC,
+  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+      KC_LCTL,    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                         KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN, KC_QUOT,
+  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+      KC_LSFT,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,  KC_ESC,
+  //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
+                                          KC_LGUI, FN_MO13,  KC_SPC,     KC_ENT, FN_MO23, KC_RALT
+                                      //`--------------------------'  `--------------------------'
+
+  ),
+
+  [QWERTY] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
        KC_TAB,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                         KC_Y,    KC_U,    KC_I,    KC_O,   KC_P,  KC_BSPC,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
@@ -124,13 +138,14 @@ bool caps_word_press_user(uint16_t keycode) {
     }
 }
 
-static uint32_t key_timer;
+#ifdef RGBLIGHT_TIMEOUT
+static uint16_t key_timer;
 static void refresh_rgb(void);
 static void check_rgb_timeout(void);
 bool is_rgb_timeout = false;
 
 void refresh_rgb() {
-    key_timer = timer_read32();
+    key_timer = timer_read();
     if (is_rgb_timeout) {
         is_rgb_timeout = false;
         rgblight_wakeup();
@@ -138,11 +153,12 @@ void refresh_rgb() {
 }
 
 void check_rgb_timeout() {
-    if (!is_rgb_timeout && timer_elapsed32(key_timer) > RGBLIGHT_TIMEOUT) {
+    if (!is_rgb_timeout && timer_elapsed(key_timer) > RGBLIGHT_TIMEOUT) {
         rgblight_suspend();
         is_rgb_timeout = true;
     }
 }
+#endif
 
 void housekeeping_task_user(void) {
     #ifdef RGBLIGHT_TIMEOUT
@@ -159,12 +175,41 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
 const rgblight_segment_t PROGMEM rgb_numpad_layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {10, 4, HSV_CYAN},
     {15, 6, HSV_CYAN},
-    {21, 1, 140, 220, 255},
-    {26, 1, 10, 255, 255}
+    {21, 1, 170, 220, 255},
+    {26, 1, 10, 255, 255},
+    {41, 1, HSV_CYAN}
+);
+const rgblight_segment_t PROGMEM rgb_nav_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    {9, 2, HSV_GOLD},
+    {13, 1, HSV_GOLD},
+    {17, 2, HSV_GOLD},
+    {23, 1, HSV_GOLD},
+    {36, 2, HSV_GOLD},
+    {44, 2, HSV_GOLD},
+    {50, 1, HSV_GOLD},
+    {35, 1, HSV_YELLOW},
+    {38, 1, HSV_YELLOW},
+    {43, 1, HSV_YELLOW},
+    {46, 1, HSV_YELLOW}
+);
+const rgblight_segment_t PROGMEM rgb_sym_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    {9, 2, 12, 255, 255},
+    {17, 2, 12, 255, 255},
+    {23, 1, 12, 255, 255},
+    {36, 2, 12, 255, 255},
+    {40, 1, 12, 255, 255},
+    {44, 2, 12, 255, 255},
+    {50, 1, 12, 255, 255}
+);
+const rgblight_segment_t PROGMEM rgb_caps_word[] = RGBLIGHT_LAYER_SEGMENTS(
+    {0, 54, HSV_CHARTREUSE}
 );
 
 const rgblight_segment_t* const PROGMEM rgb_layers[] = RGBLIGHT_LAYERS_LIST(
-    rgb_numpad_layer
+    rgb_numpad_layer,
+    rgb_nav_layer,
+    rgb_sym_layer,
+    rgb_caps_word
 );
 
 void keyboard_post_init_user(void) {
@@ -173,35 +218,14 @@ void keyboard_post_init_user(void) {
 
 layer_state_t layer_state_set_user(layer_state_t state) {
     rgblight_set_layer_state(0, layer_state_cmp(state, NUMPAD));
+    rgblight_set_layer_state(1, layer_state_cmp(state, NAV));
+    rgblight_set_layer_state(2, layer_state_cmp(state, SYMBOL));
 
-    // switch (get_highest_layer(state)) {
-    //     // case BASE:
-    //     //     break;
-    //     // case NAV:
-    //     //     break;
-    //     // case SYMBOL:
-    //     //     break;
-    //     // case MOUSE:
-    //     //     break;
-    //     // case ADJUST:
-    //     //     break;
-    //     case NUMPAD:
-    //         rgb_mode = rgblight_get_mode();
-    //         rgblight_mode(RGBLIGHT_MODE_STATIC_LIGHT);
-    //         rgblight_setrgb(RGB_BLACK);
-    //         setrgb(RGB_AZURE, (LED_TYPE *)&led[10]);
-    //         setrgb(RGB_MAGENTA, (LED_TYPE *)&led[35]);
-    //         rgblight_set();
-    //         // rgblight_setrgb_master(RGB_CHARTREUSE);
-    //         // rgblight_setrgb_slave(RGB_BLACK);
-    //         break;
-    //     default:
-    //         // rgblight_enable();
-    //         if (rgb_mode) {
-    //             rgblight_mode(rgb_mode);
-    //             rgb_mode = 0;
-    //         }
-    //         break;
-    // }
+    state = update_tri_layer_state(state, NAV, SYMBOL, MOUSE);
+
     return state;
+}
+
+void caps_word_set_user(bool active) {
+    rgblight_set_layer_state(3, active);
 }

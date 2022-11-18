@@ -31,7 +31,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #define RGBLIGHT_EFFECT_SNAKE
     #define RGBLIGHT_EFFECT_KNIGHT
     #define RGBLIGHT_EFFECT_CHRISTMAS
-    #define RGBLIGHT_EFFECT_STATIC_GRADIENT
+    // #define RGBLIGHT_EFFECT_STATIC_GRADIENT
 //  #define RGBLIGHT_EFFECT_RGB_TEST
 //  #define RGBLIGHT_EFFECT_ALTERNATING
 //  #define RGBLIGHT_EFFECT_TWINKLE
@@ -40,10 +40,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #define RGBLIGHT_SAT_STEP 17
     #define RGBLIGHT_VAL_STEP 17
     #define RGBLIGHT_SLEEP
-    #define RGBLIGHT_TIMEOUT 180000
+    // #define RGBLIGHT_TIMEOUT 60000
     #define RGBLIGHT_LAYERS
 #endif
 
-#define DYNAMIC_KEYMAP_LAYER_COUNT 6
+#define DYNAMIC_KEYMAP_LAYER_COUNT 7
 
 #define DOUBLE_TAP_SHIFT_TURNS_ON_CAPS_WORD

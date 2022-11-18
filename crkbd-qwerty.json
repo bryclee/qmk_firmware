@@ -254,13 +254,13 @@
       "KC_TRNS"
     ],
     [
-      "KC_NO",
+      "KC_TRNS",
       "KC_PAST",
       "KC_P7",
       "KC_P8",
       "KC_P9",
       "KC_PSLS",
-      "KC_NO",
+      "KC_TRNS",
       "KC_PEQL",
       "KC_P4",
       "KC_P5",
@@ -299,8 +299,8 @@
       "KC_NO",
       "KC_NO",
       "KC_NO",
-      "KC_NO",
       "TG(5)",
+      "KC_NO",
       "KC_NO"
     ]
   ],
