@@ -1,7 +1,6 @@
 MOUSEKEY_ENABLE = yes     # Mouse keys
 RGBLIGHT_ENABLE = yes    # Enable WS2812 RGB underlight.
-VIA_ENABLE      = yes    # Enable VIA
+VIA_ENABLE      = no    # Enable VIA
 OLED_ENABLE     = no
-OLED_DRIVER     = SSD1306
-LTO_ENABLE      = yes
+LTO_ENABLE      = yes		# Link Time Optimization
 CAPS_WORD_ENABLE = yes
