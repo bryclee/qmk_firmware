@@ -152,44 +152,116 @@ bool caps_word_press_user(uint16_t keycode) {
     }
 }
 
+#ifdef RGBLIGHT_WAKEUP_ANIMATION
+#define RGBLIGHT_WAKEUP_ANIMATION_INTERVAL 25
+struct Wakeup_animation {
+    bool running;
+    uint8_t start;
+    uint8_t end;
+    uint16_t last_timer;
+} wakeup_anim;
+
+void rgblight_wakeup_init(void) {
+    wakeup_anim.running = true;
+    wakeup_anim.last_timer = sync_timer_read();
+    wakeup_anim.start = 10;
+    wakeup_anim.end = 11;
+    rgblight_set_effect_range(wakeup_anim.start, wakeup_anim.end);
+}
+
+void rgblight_wakeup_animation(void) {
+    if (sync_timer_elapsed(wakeup_anim.last_timer) > RGBLIGHT_WAKEUP_ANIMATION_INTERVAL) {
+        wakeup_anim.start = wakeup_anim.start == 0 ? 0 : wakeup_anim.start - 1;
+        wakeup_anim.end = wakeup_anim.end == RGBLED_NUM ? RGBLED_NUM : wakeup_anim.end + 1;
+        rgblight_set_effect_range(wakeup_anim.start, wakeup_anim.end - wakeup_anim. start);
+
+        if (wakeup_anim.start == 0 && wakeup_anim.end == RGBLED_NUM) {
+            wakeup_anim.running = false;
+        } else {
+            wakeup_anim.last_timer = sync_timer_read();
+        }
+    }
+    // start animation from 10 for testing
+
+    // check animation timer: if so, continue
+    // change rgb effect to minus 1 to start, add 1 to end. Need to make sure min is 0, num leds is end - start, and end must be less than total num leds
+    // if start is 0 and num rgbs == total num rgbs, clear animation state
+    // reset last elapsed time
+}
+#endif
+
 #ifdef RGBLIGHT_TIMEOUT
 static uint16_t key_timer;
 static void refresh_rgb(void);
 static void check_rgb_timeout(void);
-bool is_rgb_timeout = false;
+bool is_rgb_suspended = false;
+bool pre_suspend_rgb_enabled;
 
 void refresh_rgb() {
     key_timer = timer_read();
-    if (is_rgb_timeout) {
-        is_rgb_timeout = false;
+    if (is_rgb_suspended) {
         rgblight_wakeup();
     }
 }
 
 void check_rgb_timeout() {
-    if (!is_rgb_timeout && timer_elapsed(key_timer) > RGBLIGHT_TIMEOUT) {
+    if (!is_rgb_suspended && timer_elapsed(key_timer) > RGBLIGHT_TIMEOUT) {
         rgblight_suspend();
-        is_rgb_timeout = true;
+    }
+}
+
+void rgblight_wakeup(void) {
+    is_rgb_suspended = false;
+
+    if (pre_suspend_rgb_enabled) {
+        rgblight_enable_noeeprom();
+    }
+
+    rgblight_timer_enable();
+
+    #ifdef RGBLIGHT_WAKEUP_ANIMATION
+    rgblight_wakeup_init();
+    #endif
+}
+
+void rgblight_suspend(void) {
+    if (!is_rgb_suspended) {
+        pre_suspend_rgb_enabled = rgblight_is_enabled();
+        is_rgb_suspended = true;
+        rgblight_timer_disable();
+        rgblight_disable_noeeprom();
     }
 }
 #endif
 
-void housekeeping_task_user(void) {
-    #ifdef RGBLIGHT_TIMEOUT
-    check_rgb_timeout();
+void matrix_scan_user(void) {
+    #ifdef RGBLIGHT_WAKEUP_ANIMATION
+    if (wakeup_anim.running) {
+        rgblight_wakeup_animation();
+    }
     #endif
 }
 
-void suspend_wakeup_init_user(void) {
-    #ifdef RGBLIGHT_TIMEOUT
-    refresh_rgb(); // If wakeup from something other than keypress, ensure that timeout still takes effect
-    #endif
+void housekeeping_task_user(void) {
+#ifdef RGBLIGHT_TIMEOUT
+    check_rgb_timeout();
+#endif
 }
 
 void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
-    #ifdef RGBLIGHT_TIMEOUT
+#ifdef RGBLIGHT_TIMEOUT
     if (record->event.pressed) refresh_rgb();
-    #endif
+// #else
+//     sethsv(HSV_RED, (LED_TYPE *)&led[50]);
+//     sethsv(HSV_RED, (LED_TYPE *)&led[10]);
+//     rgblight_set();
+#endif
+}
+
+void suspend_power_down_user(void) {
+#ifdef RGBLIGHT_TIMEOUT
+    rgblight_suspend();
+#endif
 }
 
 const rgblight_segment_t PROGMEM rgb_numpad_layer[] = RGBLIGHT_LAYER_SEGMENTS(
@@ -234,6 +306,13 @@ const rgblight_segment_t* const PROGMEM rgb_layers[] = RGBLIGHT_LAYERS_LIST(
 
 void keyboard_post_init_user(void) {
     rgblight_layers = rgb_layers;
+
+#ifdef RGBLIGHT_TIMEOUT
+    refresh_rgb();
+#endif
+#ifdef RGBLIGHT_WAKEUP_ANIMATION
+    rgblight_wakeup_init();
+#endif
 }
 
 layer_state_t layer_state_set_user(layer_state_t state) {
