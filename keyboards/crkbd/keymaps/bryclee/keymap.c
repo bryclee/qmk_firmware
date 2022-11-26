@@ -110,9 +110,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
       _______, KC_MPRV, KC_MPLY, KC_MUTE, KC_MNXT, RESET,                        TG(GAME), KC_F9, KC_F10, KC_F11, KC_F12, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, KC_VOLU, XXXXXXX,                      DF(BASE), KC_F5, KC_F6, KC_F7, KC_F8, XXXXXXX,
+      RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, KC_VOLU, RGB_SPI,                      DF(BASE), KC_F5, KC_F6, KC_F7, KC_F8, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD, KC_VOLD, XXXXXXX,                      DF(QWERTY), KC_F1, KC_F2, KC_F3, KC_F4, XXXXXXX,
+      RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD, KC_VOLD, RGB_SPD,                      DF(QWERTY), KC_F1, KC_F2, KC_F3, KC_F4, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           _______, _______,  _______,     _______, _______, _______
                                       //`--------------------------'  `--------------------------'
@@ -251,10 +251,6 @@ void housekeeping_task_user(void) {
 void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
 #ifdef RGBLIGHT_TIMEOUT
     if (record->event.pressed) refresh_rgb();
-// #else
-//     sethsv(HSV_RED, (LED_TYPE *)&led[50]);
-//     sethsv(HSV_RED, (LED_TYPE *)&led[10]);
-//     rgblight_set();
 #endif
 }
 
@@ -264,6 +260,7 @@ void suspend_power_down_user(void) {
 #endif
 }
 
+#ifdef RGBLIGHT_LAYERS
 const rgblight_segment_t PROGMEM rgb_numpad_layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {10, 4, HSV_CYAN},
     {15, 6, HSV_CYAN},
@@ -303,9 +300,12 @@ const rgblight_segment_t* const PROGMEM rgb_layers[] = RGBLIGHT_LAYERS_LIST(
     rgb_sym_layer,
     rgb_caps_word
 );
+#endif
 
 void keyboard_post_init_user(void) {
+#ifdef RGBLIGHT_LAYERS
     rgblight_layers = rgb_layers;
+#endif
 
 #ifdef RGBLIGHT_TIMEOUT
     refresh_rgb();
@@ -316,9 +316,11 @@ void keyboard_post_init_user(void) {
 }
 
 layer_state_t layer_state_set_user(layer_state_t state) {
+#ifdef RGBLIGHT_LAYERS
     rgblight_set_layer_state(0, layer_state_cmp(state, NUMPAD));
     rgblight_set_layer_state(1, layer_state_cmp(state, NAV));
     rgblight_set_layer_state(2, layer_state_cmp(state, SYMBOL));
+#endif
 
     state = update_tri_layer_state(state, NAV, SYMBOL, MOUSE);
 
@@ -326,5 +328,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 }
 
 void caps_word_set_user(bool active) {
+#ifdef RGBLIGHT_LAYERS
     rgblight_set_layer_state(3, active);
+#endif
 }
