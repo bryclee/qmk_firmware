@@ -17,7 +17,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include QMK_KEYBOARD_H
+
 #include "features/swapper.h"
+#include "features/layer_lock.h"
 
 enum crkbd_layers {
     BASE = 0,
@@ -33,7 +35,8 @@ enum custom_keycodes {
     SW_WIN = SAFE_RANGE,
     SW_SWIN,
     SW_CTAB,
-    SW_SCTAB
+    SW_SCTAB,
+    LLOCK
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -84,7 +87,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_LSFT, SW_SWIN, SW_SCTAB, SW_CTAB, SW_WIN, XXXXXXX,                      KC_HOME, KC_PGDN, KC_PGUP, KC_END, KC_DEL, _______,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          _______, _______,  _______,     _______, _______, _______
+                                          _______, _______,  _______,     _______, _______, LLOCK
                                       //`--------------------------'  `--------------------------'
   ),
 
@@ -171,6 +174,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         &sw_ctab_active, KC_LCTL, KC_TAB, SW_CTAB, SW_SCTAB,
         keycode, record
     );
+    if (!process_layer_lock(keycode, record, LLOCK)) { return false; }
 
     return true;
 }

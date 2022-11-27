@@ -6,3 +6,4 @@ OLED_ENABLE     = no
 LTO_ENABLE      = yes		# Link Time Optimization
 CAPS_WORD_ENABLE = yes
 SRC += features/swapper.c
+SRC += features/layer_lock.c
