@@ -17,6 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include QMK_KEYBOARD_H
+#include "features/swapper.h"
 
 enum crkbd_layers {
     BASE = 0,
@@ -27,6 +28,12 @@ enum crkbd_layers {
     MOUSE,
     ADJUST,
     NUMPAD
+};
+enum custom_keycodes {
+    SW_WIN = SAFE_RANGE,
+    SW_SWIN,
+    SW_CTAB,
+    SW_SCTAB
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -71,11 +78,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [NAV] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-       A(KC_TAB),    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                         KC_6,    KC_7,    KC_8,    KC_9,    KC_0, _______,
+      KC_TAB,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                         KC_6,    KC_7,    KC_8,    KC_9,    KC_0, _______,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_ESC, KC_LCTL, KC_LGUI, KC_LALT, KC_LSFT, XXXXXXX,                      KC_LEFT, KC_DOWN,   KC_UP,KC_RIGHT, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LSFT, C(S(KC_TAB)), C(KC_TAB), XXXXXXX, XXXXXXX, XXXXXXX,                      KC_HOME, KC_PGDN, KC_PGUP, KC_END, KC_DEL, _______,
+      KC_LSFT, SW_SWIN, SW_SCTAB, SW_CTAB, SW_WIN, XXXXXXX,                      KC_HOME, KC_PGDN, KC_PGUP, KC_END, KC_DEL, _______,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           _______, _______,  _______,     _______, _______, _______
                                       //`--------------------------'  `--------------------------'
@@ -150,6 +157,22 @@ bool caps_word_press_user(uint16_t keycode) {
         default:
             return false;  // Deactivate Caps Word.
     }
+}
+
+bool sw_win_active = false;
+bool sw_ctab_active = false;
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    update_shiftable_swapper(
+        &sw_win_active, KC_LALT, KC_TAB, SW_WIN, SW_SWIN,
+        keycode, record
+    );
+    update_shiftable_swapper(
+        &sw_ctab_active, KC_LCTL, KC_TAB, SW_CTAB, SW_SCTAB,
+        keycode, record
+    );
+
+    return true;
 }
 
 #ifdef RGBLIGHT_WAKEUP_ANIMATION
