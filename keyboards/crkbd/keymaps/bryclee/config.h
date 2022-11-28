@@ -53,7 +53,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #   define RGB_MATRIX_VAL_STEP 8
 #   define RGB_MATRIX_SPD_STEP 10
 #   define RGB_MATRIX_STARTUP_SPD 50
-#   define RGB_DISABLE_TIMEOUT 120000
+#   define RGB_DISABLE_TIMEOUT 60000
+#   define SPLIT_LAYER_STATE_ENABLE
 
 #   define RGB_MATRIX_KEYPRESSES
 // #    define ENABLE_RGB_MATRIX_ALPHAS_MODS
@@ -82,13 +83,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #    define ENABLE_RGB_MATRIX_HUE_BREATHING
 // #    define ENABLE_RGB_MATRIX_HUE_PENDULUM
 // #    define ENABLE_RGB_MATRIX_HUE_WAVE
-// #    define ENABLE_RGB_MATRIX_PIXEL_RAIN
+#    define ENABLE_RGB_MATRIX_PIXEL_RAIN
 // #    define ENABLE_RGB_MATRIX_PIXEL_FLOW
 // #    define ENABLE_RGB_MATRIX_PIXEL_FRACTAL
 #   define ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTICROSS
-#   define ENABLE_RGB_MATRIX_TYPING_HEATMAP
 #endif
 
-#define DYNAMIC_KEYMAP_LAYER_COUNT 8
+// #define DYNAMIC_KEYMAP_LAYER_COUNT 8 // only needed for Via
 
 #define DOUBLE_TAP_SHIFT_TURNS_ON_CAPS_WORD
