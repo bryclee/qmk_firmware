@@ -24,19 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [BASE] = LAYOUT_split_3x6_3(
-  //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-       LT(ADJUST,KC_TAB),   KC_QUOT,    KC_COMM,    KC_DOT,    KC_P,    KC_Y,                         KC_F,    KC_G,    KC_C,    KC_R,   KC_L,  KC_BSPC,
-  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      MT(MOD_LCTL,KC_ESC),    KC_A,    KC_O,    KC_E,    KC_U,    KC_I,                         KC_D,    KC_H,    KC_T,    KC_N, KC_S, KC_SLSH,
-  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LALT,    KC_SCLN,    KC_Q,    KC_J,    KC_K,    KC_X,                         KC_B,    KC_M, KC_W,  KC_V, KC_Z,  KC_ENT,
-  //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          KC_LGUI, MO(NAV),  KC_SPC,     KC_LSFT, MO(SYMBOL), TG(NUMPAD)
-                                      //`--------------------------'  `--------------------------'
-
-  ),
-
   [QWERTY] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
        LT(ADJUST,KC_TAB),    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                         KC_Y,    KC_U,    KC_I,    KC_O,   KC_P,  KC_BSPC,
@@ -44,6 +31,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       MT(MOD_LCTL,KC_ESC),    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                         KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN, KC_QUOT,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_LALT,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,  KC_ENT,
+  //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
+                                          KC_LGUI, MO(NAV),  KC_SPC,     KC_LSFT, MO(SYMBOL), TG(NUMPAD)
+                                      //`--------------------------'  `--------------------------'
+
+  ),
+
+  [DVORAK] = LAYOUT_split_3x6_3(
+  //,-----------------------------------------------------.                    ,-----------------------------------------------------.
+       LT(ADJUST,KC_TAB),   KC_QUOT,    KC_COMM,    KC_DOT,    KC_P,    KC_Y,                         KC_F,    KC_G,    KC_C,    KC_R,   KC_L,  KC_BSPC,
+  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+      MT(MOD_LCTL,KC_ESC),    KC_A,    KC_O,    KC_E,    KC_U,    KC_I,                         KC_D,    KC_H,    KC_T,    KC_N, KC_S, KC_SLSH,
+  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+      KC_LALT,    KC_SCLN,    KC_Q,    KC_J,    KC_K,    KC_X,                         KC_B,    KC_M, KC_W,  KC_V, KC_Z,  KC_ENT,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           KC_LGUI, MO(NAV),  KC_SPC,     KC_LSFT, MO(SYMBOL), TG(NUMPAD)
                                       //`--------------------------'  `--------------------------'
@@ -67,7 +67,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
       KC_TAB,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                         KC_6,    KC_7,    KC_8,    KC_9,    KC_0, _______,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_ESC, KC_LCTL, KC_LGUI, KC_LALT, KC_LSFT, XXXXXXX,                      KC_LEFT, KC_DOWN,   KC_UP,KC_RIGHT, XXXXXXX, XXXXXXX,
+      KC_ESC, KC_LCTL, KC_LGUI, KC_LALT, KC_LSFT, XXXXXXX,                      KC_LEFT, KC_DOWN,   KC_UP,KC_RIGHT, KC_MINS, KC_UNDS,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_LSFT, SW_WIN, SW_SWIN, SW_SCTAB, SW_CTAB, XXXXXXX,                      KC_HOME, KC_PGDN, KC_PGUP, KC_END, KC_DEL, _______,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
@@ -91,9 +91,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
       _______, KC_EXLM,   KC_AT, KC_HASH,  KC_DLR, KC_PERC,                      KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, _______,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      _______, KC_GRV, KC_EQL, KC_LBRC, KC_RBRC, KC_BSLS,                      XXXXXXX,  KC_LSFT, KC_LALT, KC_LGUI, KC_LCTL,  KC_MINS,
+      _______, KC_GRV, KC_EQL, KC_LBRC, KC_RBRC, KC_BSLS,                      XXXXXXX,  KC_LSFT, KC_LALT, KC_LGUI, KC_LCTL,  XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      _______, KC_TILD, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_UNDS,
+      _______, KC_TILD, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           _______, _______,  _______,     _______, _______, _______
                                       //`--------------------------'  `--------------------------'
@@ -116,11 +116,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
       _______, KC_MPRV, KC_MPLY, KC_MUTE, KC_MNXT, RESET,                        TG(GAME), KC_F9, KC_F10, KC_F11, KC_F12, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, KC_VOLU, RGB_SPI,                      DF(BASE), KC_F5, KC_F6, KC_F7, KC_F8, XXXXXXX,
+      RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, KC_VOLU, RGB_SPI,                      DF(DVORAK), KC_F5, KC_F6, KC_F7, KC_F8, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD, KC_VOLD, RGB_SPD,                      DF(QWERTY), KC_F1, KC_F2, KC_F3, KC_F4, XXXXXXX,
+      RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD, KC_VOLD, RGB_SPD,                      DF(QWERTY), KC_F1, KC_F2, KC_F3, KC_F4, KC_RSFT,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          _______, _______,  _______,     _______, _______, _______
+                                          _______, _______,  _______,     KC_RGUI, KC_RALT, KC_RCTL
                                       //`--------------------------'  `--------------------------'
   ),
 
@@ -176,30 +176,68 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 #ifdef RGBLIGHT_WAKEUP_ANIMATION
-#define RGBLIGHT_WAKEUP_ANIMATION_INTERVAL 25
+#include <transactions.h>
+#define RGBLIGHT_WAKEUP_ANIMATION_INTERVAL 10
 struct Wakeup_animation {
     bool running;
-    uint8_t start;
+    bool sync_follower;
+    uint8_t last_mode;
+    uint8_t last_val;
+    uint8_t pos;
     uint8_t end;
     uint16_t last_timer;
 } wakeup_anim;
+struct _anim_sync_info {
+    uint8_t start_time;
+} anim_sync_info;
 
 void rgblight_wakeup_init(void) {
     wakeup_anim.running = true;
+    wakeup_anim.last_mode = rgblight_get_mode();
+    wakeup_anim.last_val = rgblight_get_val();
+    wakeup_anim.pos = 0;
+#ifdef RGBLED_SPLIT
+    uint8_t num_split[2] = RGBLED_SPLIT;
+    wakeup_anim.end = num_split[0];
+    wakeup_anim.sync_follower = true;
+#else
+    wakeup_anim.end = RGBLED_NUM;
+#endif
     wakeup_anim.last_timer = sync_timer_read();
-    wakeup_anim.start = 26;
-    wakeup_anim.end = 27;
-    rgblight_set_effect_range(wakeup_anim.start, wakeup_anim.end);
+
+    rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
+
+    for (uint8_t i = 0; i < RGBLED_NUM; i++) {
+        sethsv(HSV_OFF, (LED_TYPE *)&led[i]);
+    }
+    rgblight_set();
+}
+
+bool rgblight_wakeup_animation_need_close(void) {
+#ifdef RGBLIGHT_SPLIT
+    if (!is_keyboard_master()) {
+        return false;
+    }
+#endif
+    return true;
 }
 
 void rgblight_wakeup_animation(void) {
     if (sync_timer_elapsed(wakeup_anim.last_timer) > RGBLIGHT_WAKEUP_ANIMATION_INTERVAL) {
-        wakeup_anim.start = wakeup_anim.start == 0 ? 0 : wakeup_anim.start - 1;
-        wakeup_anim.end = wakeup_anim.end == RGBLED_NUM ? RGBLED_NUM : wakeup_anim.end + 1;
-        rgblight_set_effect_range(wakeup_anim.start, wakeup_anim.end - wakeup_anim. start);
+        sethsv(HSV_WHITE, (LED_TYPE *)&led[wakeup_anim.pos]);
+    #ifdef RGBLED_SPLIT
+        sethsv(HSV_WHITE, (LED_TYPE *)&led[wakeup_anim.end + wakeup_anim.pos]);
+    #endif
+        wakeup_anim.pos++;
+        rgblight_set();
 
-        if (wakeup_anim.start == 0 && wakeup_anim.end == RGBLED_NUM) {
+        if (wakeup_anim.pos == wakeup_anim.end) {
             wakeup_anim.running = false;
+            if (rgblight_wakeup_animation_need_close()) {
+                if (wakeup_anim.last_mode != RGBLIGHT_MODE_STATIC_LIGHT) {
+                    rgblight_mode_noeeprom(wakeup_anim.last_mode);
+                }
+            }
         } else {
             wakeup_anim.last_timer = sync_timer_read();
         }
@@ -210,6 +248,21 @@ void rgblight_wakeup_animation(void) {
     // change rgb effect to minus 1 to start, add 1 to end. Need to make sure min is 0, num leds is end - start, and end must be less than total num leds
     // if start is 0 and num rgbs == total num rgbs, clear animation state
     // reset last elapsed time
+}
+
+void user_sync_anim_slave_handler(uint8_t in_buflen, const void* in_data, uint8_t out_buflen, void* out_data) {
+    if (in_buflen == sizeof(anim_sync_info)) {
+        memcpy(&anim_sync_info, in_data, in_buflen);
+        wakeup_anim.running = true;
+        wakeup_anim.last_timer = anim_sync_info.start_time;
+        wakeup_anim.pos = 0;
+    #ifdef RGBLED_SPLIT
+        uint8_t num_split[2] = RGBLED_SPLIT;
+        wakeup_anim.end = num_split[0];
+    #else
+        wakeup_anim.end = RGBLED_NUM;
+    #endif
+    }
 }
 #endif
 
@@ -269,6 +322,14 @@ void housekeeping_task_user(void) {
 #ifdef RGBLIGHT_TIMEOUT
     check_rgb_timeout();
 #endif
+#ifdef RGBLIGHT_WAKEUP_ANIMATION
+    if (wakeup_anim.sync_follower) {
+        anim_sync_info.start_time = wakeup_anim.last_timer;
+        if (transaction_rpc_send(USER_SYNC_ANIM, sizeof anim_sync_info, &anim_sync_info)) {
+            wakeup_anim.sync_follower = false;
+        }
+    }
+#endif
 }
 
 void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -283,7 +344,18 @@ void suspend_power_down_user(void) {
 #endif
 }
 
+layer_state_t default_layer_state_set_user(layer_state_t state) {
+    if (layer_state_cmp(state, DVORAK)) {
+        rgblight_mode_noeeprom(RGBLIGHT_MODE_RAINBOW_SWIRL + 4);
+    } else if (layer_state_cmp(state, QWERTY)) {
+        rgblight_mode_noeeprom(RGBLIGHT_MODE_RAINBOW_MOOD + 2);
+    }
+
+    return state;
+}
+
 #ifdef RGBLIGHT_LAYERS
+#define _GREEN          95, 255, 90
 const rgblight_segment_t PROGMEM rgb_numpad_layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {10, 4, HSV_CYAN},
     {15, 6, HSV_CYAN},
@@ -293,12 +365,12 @@ const rgblight_segment_t PROGMEM rgb_numpad_layer[] = RGBLIGHT_LAYER_SEGMENTS(
 );
 const rgblight_segment_t PROGMEM rgb_nav_layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {9, 2, HSV_GOLD},
-    {13, 1, HSV_GOLD},
     {17, 2, HSV_GOLD},
     {23, 1, HSV_GOLD},
     {36, 2, HSV_GOLD},
     {44, 2, HSV_GOLD},
     {50, 1, HSV_GOLD},
+    {13, 1, HSV_GOLD},
     {35, 1, HSV_YELLOW},
     {38, 1, HSV_YELLOW},
     {43, 1, HSV_YELLOW},
@@ -313,6 +385,20 @@ const rgblight_segment_t PROGMEM rgb_sym_layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {44, 2, 12, 255, 255},
     {50, 1, 12, 255, 255}
 );
+const rgblight_segment_t PROGMEM rgb_adjust_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    {10, 3, _GREEN},
+    {17, 2, _GREEN},
+    {23, 1, _GREEN},
+    {34, 3, _GREEN}
+);
+const rgblight_segment_t PROGMEM rgb_game_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    {6, 1, HSV_RED},
+    {13, 2, HSV_RED},
+    {24, 3, HSV_RED},
+    {33, 1, HSV_RED},
+    {40, 2, HSV_RED},
+    {51, 3, HSV_RED}
+);
 const rgblight_segment_t PROGMEM rgb_caps_word[] = RGBLIGHT_LAYER_SEGMENTS(
     {0, 54, HSV_CHARTREUSE}
 );
@@ -321,8 +407,18 @@ const rgblight_segment_t* const PROGMEM rgb_layers[] = RGBLIGHT_LAYERS_LIST(
     rgb_numpad_layer,
     rgb_nav_layer,
     rgb_sym_layer,
+    rgb_adjust_layer,
+    rgb_game_layer,
     rgb_caps_word
 );
+enum lighting_layers {
+    L_NUMPAD = 0,
+    L_NAV,
+    L_SYM,
+    L_ADJUST,
+    L_GAME,
+    L_CAPSW
+};
 #endif
 
 void keyboard_post_init_user(void) {
@@ -330,19 +426,22 @@ void keyboard_post_init_user(void) {
     rgblight_layers = rgb_layers;
 #endif
 
+#ifdef RGBLIGHT_WAKEUP_ANIMATION
+    transaction_register_rpc(USER_SYNC_ANIM, user_sync_anim_slave_handler);
+#endif
+
 #ifdef RGBLIGHT_TIMEOUT
     refresh_rgb();
-#endif
-#ifdef RGBLIGHT_WAKEUP_ANIMATION
-    rgblight_wakeup_init();
 #endif
 }
 
 layer_state_t layer_state_set_user(layer_state_t state) {
 #ifdef RGBLIGHT_LAYERS
-    rgblight_set_layer_state(0, layer_state_cmp(state, NUMPAD));
-    rgblight_set_layer_state(1, layer_state_cmp(state, NAV));
-    rgblight_set_layer_state(2, layer_state_cmp(state, SYMBOL));
+    rgblight_set_layer_state(L_NUMPAD, layer_state_cmp(state, NUMPAD));
+    rgblight_set_layer_state(L_NAV, layer_state_cmp(state, NAV));
+    rgblight_set_layer_state(L_SYM, layer_state_cmp(state, SYMBOL));
+    rgblight_set_layer_state(L_ADJUST, layer_state_cmp(state, ADJUST));
+    rgblight_set_layer_state(L_GAME, layer_state_cmp(state, GAME));
 #endif
 
     state = update_tri_layer_state(state, NAV, SYMBOL, MOUSE);
@@ -353,7 +452,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 
 void caps_word_set_user(bool active) {
 #ifdef RGBLIGHT_LAYERS
-    rgblight_set_layer_state(3, active);
+    rgblight_set_layer_state(L_CAPSW, active);
 #endif
 }
 

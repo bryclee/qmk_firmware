@@ -40,9 +40,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #define RGBLIGHT_SAT_STEP 17
     #define RGBLIGHT_VAL_STEP 17
     // #define RGBLIGHT_SLEEP
-    #define RGBLIGHT_TIMEOUT 15000
-    #define RGBLIGHT_WAKEUP_ANIMATION
+    #define RGBLIGHT_TIMEOUT 60000
     #define RGBLIGHT_LAYERS
+    // #define RGBLIGHT_WAKEUP_ANIMATION
+    // #define SPLIT_TRANSACTION_IDS_USER USER_SYNC_ANIM
 #endif
 
 #ifdef RGB_MATRIX_ENABLE

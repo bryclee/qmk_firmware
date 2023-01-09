@@ -2,9 +2,9 @@
 #include QMK_KEYBOARD_H
 #include "keycodes.h"
 
+#ifdef RGB_MATRIX_ENABLE
 static const uint8_t toprow_keys[] = { 9, 10, 17, 18, 23, 36, 37, 44, 45, 50 };
 
-#ifdef RGB_MATRIX_ENABLE
 void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     if (is_caps_word_on()) {
         for (uint8_t i = led_min; i <= led_max; i++) {
