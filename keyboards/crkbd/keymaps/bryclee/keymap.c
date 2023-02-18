@@ -32,7 +32,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_LALT,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,  KC_ENT,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          KC_LGUI, MO(NAV),  KC_SPC,     KC_LSFT, MO(SYMBOL), TG(NUMPAD)
+                                          KC_LGUI, OSL(NAV),  KC_SPC,     KC_LSFT, OSL(SYMBOL), TG(NUMPAD)
                                       //`--------------------------'  `--------------------------'
 
   ),
@@ -45,7 +45,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_LALT,    KC_SCLN,    KC_Q,    KC_J,    KC_K,    KC_X,                         KC_B,    KC_M, KC_W,  KC_V, KC_Z,  KC_ENT,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          KC_LGUI, MO(NAV),  KC_SPC,     KC_LSFT, MO(SYMBOL), TG(NUMPAD)
+                                          KC_LGUI, OSL(NAV),  KC_SPC,     KC_LSFT, OSL(SYMBOL), TG(NUMPAD)
                                       //`--------------------------'  `--------------------------'
 
   ),
@@ -58,7 +58,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_LSFT, _______,    _______,    _______,    _______,    _______,                         _______,    _______, _______,  _______, _______,  _______,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          KC_LALT, _______,  _______,     _______, _______, MO(ADJUST)
+                                          KC_LALT, MO(GAME_NAV),  _______,     _______, _______, MO(ADJUST)
                                       //`--------------------------'  `--------------------------'
 
   ),
@@ -67,7 +67,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
       KC_TAB,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                         KC_6,    KC_7,    KC_8,    KC_9,    KC_0, _______,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_ESC, KC_LCTL, KC_LGUI, KC_LALT, KC_LSFT, XXXXXXX,                      KC_LEFT, KC_DOWN,   KC_UP,KC_RIGHT, KC_UNDS, KC_MINS,
+      KC_ESC, OSM(MOD_LCTL), OSM(MOD_LGUI), OSM(MOD_LALT), OSM(MOD_LSFT), CAPS_WORD,                      KC_LEFT, KC_DOWN,   KC_UP,KC_RIGHT, KC_MINS, KC_UNDS,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_LSFT, SW_WIN, SW_SWIN, SW_SCTAB, SW_CTAB, XXXXXXX,                      KC_HOME, KC_PGDN, KC_PGUP, KC_END, KC_DEL, _______,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
@@ -91,7 +91,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
       _______, KC_EXLM,   KC_AT, KC_HASH,  KC_DLR, KC_PERC,                      KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, _______,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      _______, KC_GRV, KC_EQL, KC_LBRC, KC_RBRC, KC_BSLS,                      XXXXXXX,  KC_LSFT, KC_LALT, KC_LGUI, KC_LCTL,  XXXXXXX,
+      _______, KC_GRV, KC_EQL, KC_LBRC, KC_RBRC, KC_BSLS,                      XXXXXXX,  OSM(MOD_LSFT), OSM(MOD_LALT), OSM(MOD_LGUI), OSM(MOD_LCTL),  XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       _______, KC_TILD, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
@@ -126,11 +126,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [NUMPAD] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-      _______, KC_PAST, KC_P7, KC_P8, KC_P9, KC_PSLS,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+      _______, KC_PAST, KC_P7, KC_P8, KC_P9, KC_PSLS,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_BSPC,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       _______, KC_PEQL, KC_P4, KC_P5, KC_P6, KC_PMNS,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_ENT, KC_PDOT, KC_P1, KC_P2, KC_P3, KC_PPLS,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+      KC_ENT, KC_PDOT, KC_P1, KC_P2, KC_P3, KC_PPLS,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_ENT,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           KC_BSPC, KC_P0,  _______,     XXXXXXX, XXXXXXX, TG(NUMPAD)
                                       //`--------------------------'  `--------------------------'
@@ -402,6 +402,22 @@ const rgblight_segment_t PROGMEM rgb_game_layer[] = RGBLIGHT_LAYER_SEGMENTS(
 const rgblight_segment_t PROGMEM rgb_caps_word[] = RGBLIGHT_LAYER_SEGMENTS(
     {0, 54, HSV_CHARTREUSE}
 );
+const rgblight_segment_t PROGMEM rgb_osm_ctl[] = RGBLIGHT_LAYER_SEGMENTS(
+    {22, 1, HSV_WHITE},
+    {49, 1, HSV_WHITE}
+);
+const rgblight_segment_t PROGMEM rgb_osm_gui[] = RGBLIGHT_LAYER_SEGMENTS(
+    {19, 1, HSV_WHITE},
+    {46, 1, HSV_WHITE}
+);
+const rgblight_segment_t PROGMEM rgb_osm_alt[] = RGBLIGHT_LAYER_SEGMENTS(
+    {16, 1, HSV_WHITE},
+    {43, 1, HSV_WHITE}
+);
+const rgblight_segment_t PROGMEM rgb_osm_sft[] = RGBLIGHT_LAYER_SEGMENTS(
+    {10, 1, HSV_WHITE},
+    {38, 1, HSV_WHITE}
+);
 
 const rgblight_segment_t* const PROGMEM rgb_layers[] = RGBLIGHT_LAYERS_LIST(
     rgb_numpad_layer,
@@ -409,7 +425,11 @@ const rgblight_segment_t* const PROGMEM rgb_layers[] = RGBLIGHT_LAYERS_LIST(
     rgb_sym_layer,
     rgb_adjust_layer,
     rgb_game_layer,
-    rgb_caps_word
+    rgb_caps_word,
+    rgb_osm_ctl,
+    rgb_osm_gui,
+    rgb_osm_alt,
+    rgb_osm_sft
 );
 enum lighting_layers {
     L_NUMPAD = 0,
@@ -417,7 +437,11 @@ enum lighting_layers {
     L_SYM,
     L_ADJUST,
     L_GAME,
-    L_CAPSW
+    L_CAPSW,
+    L_OSMCTL,
+    L_OSMGUI,
+    L_OSMALT,
+    L_OSMSFT
 };
 #endif
 
@@ -445,7 +469,6 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 #endif
 
     state = update_tri_layer_state(state, NAV, SYMBOL, MOUSE);
-    state = update_tri_layer_state(state, GAME, NAV, GAME_NAV);
 
     return state;
 }
@@ -453,6 +476,15 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 void caps_word_set_user(bool active) {
 #ifdef RGBLIGHT_LAYERS
     rgblight_set_layer_state(L_CAPSW, active);
+#endif
+}
+
+void oneshot_mods_changed_user(uint8_t mods) {
+#ifdef RGBLIGHT_LAYERS
+    rgblight_set_layer_state(L_OSMALT, mods & MOD_MASK_ALT);
+    rgblight_set_layer_state(L_OSMSFT, mods & MOD_MASK_SHIFT);
+    rgblight_set_layer_state(L_OSMCTL, mods & MOD_MASK_CTRL);
+    rgblight_set_layer_state(L_OSMGUI, mods & MOD_MASK_GUI);
 #endif
 }
 

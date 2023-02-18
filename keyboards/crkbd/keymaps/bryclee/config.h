@@ -93,3 +93,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define DYNAMIC_KEYMAP_LAYER_COUNT 8 // only needed for Via
 
 #define DOUBLE_TAP_SHIFT_TURNS_ON_CAPS_WORD
+
+#define ONESHOT_TIMEOUT 1000
