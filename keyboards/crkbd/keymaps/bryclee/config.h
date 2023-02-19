@@ -42,6 +42,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     // #define RGBLIGHT_SLEEP
     #define RGBLIGHT_TIMEOUT 60000
     #define RGBLIGHT_LAYERS
+    #define RGBLIGHT_MAX_LAYERS 10
     // #define RGBLIGHT_WAKEUP_ANIMATION
     // #define SPLIT_TRANSACTION_IDS_USER USER_SYNC_ANIM
 #endif
@@ -95,3 +96,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DOUBLE_TAP_SHIFT_TURNS_ON_CAPS_WORD
 
 #define ONESHOT_TIMEOUT 1000
+
+#define DYNAMIC_MACRO_NO_NESTING

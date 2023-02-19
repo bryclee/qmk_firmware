@@ -67,11 +67,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
       KC_TAB,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                         KC_6,    KC_7,    KC_8,    KC_9,    KC_0, _______,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_ESC, OSM(MOD_LCTL), OSM(MOD_LGUI), OSM(MOD_LALT), OSM(MOD_LSFT), CAPS_WORD,                      KC_LEFT, KC_DOWN,   KC_UP,KC_RIGHT, KC_MINS, KC_UNDS,
+      KC_ESC, OSM(MOD_LCTL), OSM(MOD_LGUI), OSM(MOD_LALT), OSM(MOD_LSFT), CW_TOGG,                      KC_LEFT, KC_DOWN,   KC_UP,KC_RIGHT, KC_MINS, KC_UNDS,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_LSFT, SW_WIN, SW_SWIN, SW_SCTAB, SW_CTAB, XXXXXXX,                      KC_HOME, KC_PGDN, KC_PGUP, KC_END, KC_DEL, _______,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          _______, _______,  _______,     _______, _______, LLOCK
+                                          _______, _______,  _______,     _______, MO(MOUSE), LLOCK
                                       //`--------------------------'  `--------------------------'
   ),
 
@@ -95,7 +95,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       _______, KC_TILD, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          _______, _______,  _______,     _______, _______, _______
+                                          _______, MO(MOUSE),  _______,     _______, _______, _______
                                       //`--------------------------'  `--------------------------'
   ),
 
@@ -105,7 +105,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       XXXXXXX, KC_LCTL, KC_LGUI, KC_LALT, KC_LSFT, XXXXXXX,                      KC_MS_LEFT, KC_MS_DOWN, KC_MS_UP, KC_MS_RIGHT, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, KC_MS_BTN1, KC_MS_BTN2, XXXXXXX, XXXXXXX, XXXXXXX,
+      DM_RSTP, DM_REC1, DM_REC2, DM_PLY1, DM_PLY2, XXXXXXX,                      XXXXXXX, KC_MS_BTN1, KC_MS_BTN2, XXXXXXX, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           XXXXXXX, _______,  XXXXXXX,     XXXXXXX, _______, XXXXXXX
                                       //`--------------------------'  `--------------------------'
@@ -114,7 +114,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [ADJUST] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-      _______, KC_MPRV, KC_MPLY, KC_MUTE, KC_MNXT, RESET,                        TG(GAME), KC_F9, KC_F10, KC_F11, KC_F12, XXXXXXX,
+      _______, KC_MPRV, KC_MPLY, KC_MUTE, KC_MNXT, QK_BOOTLOADER,                        TG(GAME), KC_F9, KC_F10, KC_F11, KC_F12, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, KC_VOLU, RGB_SPI,                      DF(DVORAK), KC_F5, KC_F6, KC_F7, KC_F8, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
@@ -355,7 +355,9 @@ layer_state_t default_layer_state_set_user(layer_state_t state) {
 }
 
 #ifdef RGBLIGHT_LAYERS
-#define _GREEN          95, 255, 90
+#define _GREEN          95, 150, 255
+#define _GOLD           36, 150, 255
+#define _CORAL          11, 176, 255
 const rgblight_segment_t PROGMEM rgb_numpad_layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {10, 4, HSV_CYAN},
     {15, 6, HSV_CYAN},
@@ -364,26 +366,26 @@ const rgblight_segment_t PROGMEM rgb_numpad_layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {41, 1, HSV_CYAN}
 );
 const rgblight_segment_t PROGMEM rgb_nav_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {9, 2, HSV_GOLD},
-    {17, 2, HSV_GOLD},
-    {23, 1, HSV_GOLD},
-    {36, 2, HSV_GOLD},
-    {44, 2, HSV_GOLD},
-    {50, 1, HSV_GOLD},
-    {13, 1, HSV_GOLD},
+    {9, 2, _GOLD},
+    {17, 2, _GOLD},
+    {23, 1, _GOLD},
+    {36, 2, _GOLD},
+    {44, 2, _GOLD},
+    {50, 1, _GOLD},
+    {13, 1, _GOLD},
     {35, 1, HSV_YELLOW},
     {38, 1, HSV_YELLOW},
     {43, 1, HSV_YELLOW},
     {46, 1, HSV_YELLOW}
 );
 const rgblight_segment_t PROGMEM rgb_sym_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {9, 2, 12, 255, 255},
-    {17, 2, 12, 255, 255},
-    {23, 1, 12, 255, 255},
-    {36, 2, 12, 255, 255},
-    {40, 1, 12, 255, 255},
-    {44, 2, 12, 255, 255},
-    {50, 1, 12, 255, 255}
+    {9, 2, _CORAL},
+    {17, 2, _CORAL},
+    {23, 1, _CORAL},
+    {36, 2, _CORAL},
+    {40, 1, _CORAL},
+    {44, 2, _CORAL},
+    {50, 1, _CORAL}
 );
 const rgblight_segment_t PROGMEM rgb_adjust_layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {10, 3, _GREEN},
@@ -415,7 +417,7 @@ const rgblight_segment_t PROGMEM rgb_osm_alt[] = RGBLIGHT_LAYER_SEGMENTS(
     {43, 1, HSV_WHITE}
 );
 const rgblight_segment_t PROGMEM rgb_osm_sft[] = RGBLIGHT_LAYER_SEGMENTS(
-    {10, 1, HSV_WHITE},
+    {11, 1, HSV_WHITE},
     {38, 1, HSV_WHITE}
 );
 
@@ -468,7 +470,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     rgblight_set_layer_state(L_GAME, layer_state_cmp(state, GAME));
 #endif
 
-    state = update_tri_layer_state(state, NAV, SYMBOL, MOUSE);
+    // state = update_tri_layer_state(state, NAV, SYMBOL, MOUSE);
 
     return state;
 }
@@ -481,10 +483,10 @@ void caps_word_set_user(bool active) {
 
 void oneshot_mods_changed_user(uint8_t mods) {
 #ifdef RGBLIGHT_LAYERS
-    rgblight_set_layer_state(L_OSMALT, mods & MOD_MASK_ALT);
-    rgblight_set_layer_state(L_OSMSFT, mods & MOD_MASK_SHIFT);
     rgblight_set_layer_state(L_OSMCTL, mods & MOD_MASK_CTRL);
     rgblight_set_layer_state(L_OSMGUI, mods & MOD_MASK_GUI);
+    rgblight_set_layer_state(L_OSMALT, mods & MOD_MASK_ALT);
+    rgblight_set_layer_state(L_OSMSFT, mods & MOD_MASK_SHIFT);
 #endif
 }
 
