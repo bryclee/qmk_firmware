@@ -32,7 +32,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_LALT,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,  KC_ENT,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          KC_LGUI, OSL(NAV),  KC_SPC,     KC_LSFT, OSL(SYMBOL), TG(NUMPAD)
+                                          KC_LGUI, MO(NAV),  KC_SPC,     KC_LSFT, MO(SYMBOL), TG(NUMPAD)
                                       //`--------------------------'  `--------------------------'
 
   ),
@@ -45,7 +45,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_LALT,    KC_SCLN,    KC_Q,    KC_J,    KC_K,    KC_X,                         KC_B,    KC_M, KC_W,  KC_V, KC_Z,  KC_ENT,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          KC_LGUI, OSL(NAV),  KC_SPC,     KC_LSFT, OSL(SYMBOL), TG(NUMPAD)
+                                          KC_LGUI, MO(NAV),  KC_SPC,     KC_LSFT, MO(SYMBOL), TG(NUMPAD)
                                       //`--------------------------'  `--------------------------'
 
   ),
@@ -58,7 +58,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_LSFT, _______,    _______,    _______,    _______,    _______,                         _______,    _______, _______,  _______, _______,  _______,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          KC_LALT, MO(GAME_NAV),  _______,     _______, _______, MO(ADJUST)
+                                          KC_LALT, MO(NAV),  _______,     _______, _______, MO(ADJUST)
                                       //`--------------------------'  `--------------------------'
 
   ),
@@ -67,7 +67,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
       KC_TAB,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                         KC_6,    KC_7,    KC_8,    KC_9,    KC_0, _______,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_ESC, OSM(MOD_LCTL), OSM(MOD_LGUI), OSM(MOD_LALT), OSM(MOD_LSFT), CW_TOGG,                      KC_LEFT, KC_DOWN,   KC_UP,KC_RIGHT, KC_MINS, KC_UNDS,
+      KC_ESC, KC_LCTL, KC_LGUI, KC_LALT, KC_LSFT, CW_TOGG,                      KC_LEFT, KC_DOWN,   KC_UP,KC_RIGHT, KC_MINS, KC_UNDS,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_LSFT, SW_WIN, SW_SWIN, SW_SCTAB, SW_CTAB, XXXXXXX,                      KC_HOME, KC_PGDN, KC_PGUP, KC_END, KC_DEL, _______,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
@@ -91,7 +91,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
       _______, KC_EXLM,   KC_AT, KC_HASH,  KC_DLR, KC_PERC,                      KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, _______,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      _______, KC_GRV, KC_EQL, KC_LBRC, KC_RBRC, KC_BSLS,                      XXXXXXX,  OSM(MOD_LSFT), OSM(MOD_LALT), OSM(MOD_LGUI), OSM(MOD_LCTL),  XXXXXXX,
+      _______, KC_GRV, KC_EQL, KC_LBRC, KC_RBRC, KC_BSLS,                      XXXXXXX,  KC_LSFT, KC_LALT, KC_LGUI, KC_LCTL,  XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       _______, KC_TILD, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
@@ -363,7 +363,9 @@ const rgblight_segment_t PROGMEM rgb_numpad_layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {15, 6, HSV_CYAN},
     {21, 1, 170, 220, 255},
     {26, 1, 10, 255, 255},
-    {41, 1, HSV_CYAN}
+    {33, 8, HSV_BLACK},
+    {41, 1, HSV_CYAN},
+    {42, 12, HSV_BLACK}
 );
 const rgblight_segment_t PROGMEM rgb_nav_layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {9, 2, _GOLD},
@@ -470,7 +472,8 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     rgblight_set_layer_state(L_GAME, layer_state_cmp(state, GAME));
 #endif
 
-    // state = update_tri_layer_state(state, NAV, SYMBOL, MOUSE);
+    state = update_tri_layer_state(state, NAV, SYMBOL, MOUSE);
+    state = update_tri_layer_state(state, GAME, NAV, GAME_NAV);
 
     return state;
 }
