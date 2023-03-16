@@ -2,7 +2,8 @@
 
 enum crkbd_layers {
     QWERTY = 0,
-    DVORAK,
+    // DVORAK,
+    COLEMAK,
     GAME,
     NAV,
     GAME_NAV,
