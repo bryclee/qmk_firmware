@@ -175,6 +175,8 @@ bool sw_win_active = false;
 bool sw_ctab_active = false;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    if (!process_layer_lock(keycode, record, LLOCK)) { return false; }
+
     update_shiftable_swapper(
         &sw_win_active, KC_LALT, KC_TAB, SW_WIN, SW_SWIN,
         keycode, record
@@ -183,7 +185,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         &sw_ctab_active, KC_LCTL, KC_TAB, SW_CTAB, SW_SCTAB,
         keycode, record
     );
-    if (!process_layer_lock(keycode, record, LLOCK)) { return false; }
 
     return true;
 }
