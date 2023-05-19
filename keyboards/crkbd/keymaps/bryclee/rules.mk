@@ -5,4 +5,5 @@ VIA_ENABLE      = no    # Enable VIA
 OLED_ENABLE     = no
 LTO_ENABLE      = yes		# Link Time Optimization
 CAPS_WORD_ENABLE = yes
-SRC += features/swapper.c features/layer_lock.c rgb.c
+COMBO_ENABLE 	= yes
+SRC += features/swapper.c features/layer_lock.c features/oneshot.c rgb.c

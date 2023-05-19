@@ -19,8 +19,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include QMK_KEYBOARD_H
 
 #include "keycodes.h"
-#include "features/swapper.h"
 #include "features/layer_lock.h"
+#include "features/oneshot.h"
+#include "features/swapper.h"
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -37,7 +38,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   ),
 
-/*
   [DVORAK] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
        LT(ADJUST,KC_TAB),   KC_QUOT,    KC_COMM,    KC_DOT,    KC_P,    KC_Y,                         KC_F,    KC_G,    KC_C,    KC_R,   KC_L,  KC_BSPC,
@@ -50,7 +50,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                       //`--------------------------'  `--------------------------'
 
   ),
-*/
+
   [COLEMAK] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
        LT(ADJUST,KC_TAB),   KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,                         KC_J,    KC_L,    KC_U,    KC_Y,   KC_SCLN,  KC_BSPC,
@@ -80,7 +80,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
       KC_TAB,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                         KC_6,    KC_7,    KC_8,    KC_9,    KC_0, _______,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_ESC, KC_LCTL, KC_LGUI, KC_LALT, KC_LSFT, CW_TOGG,                      KC_LEFT, KC_DOWN,   KC_UP,KC_RIGHT, KC_MINS, KC_UNDS,
+      KC_ESC, OS_CTRL, OS_GUI, OS_ALT, OS_SHFT, CW_TOGG,                      KC_LEFT, KC_DOWN,   KC_UP,KC_RIGHT, KC_MINS, KC_UNDS,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_LSFT, SW_WIN, SW_SWIN, SW_SCTAB, SW_CTAB, XXXXXXX,                      KC_HOME, KC_PGDN, KC_PGUP, KC_END, KC_DEL, _______,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
@@ -104,7 +104,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
       _______, KC_EXLM,   KC_AT, KC_HASH,  KC_DLR, KC_PERC,                      KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, _______,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      _______, KC_GRV, KC_EQL, KC_LBRC, KC_RBRC, KC_BSLS,                      XXXXXXX,  KC_LSFT, KC_LALT, KC_LGUI, KC_LCTL,  XXXXXXX,
+      _______, KC_GRV, KC_EQL, KC_LBRC, KC_RBRC, KC_BSLS,                      XXXXXXX,  OS_SHFT, OS_ALT, OS_GUI, OS_CTRL,  XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       _______, KC_TILD, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
@@ -127,7 +127,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [ADJUST] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-      _______, KC_MPRV, KC_MPLY, KC_MUTE, KC_MNXT, QK_BOOTLOADER,                        TG(GAME), KC_F9, KC_F10, KC_F11, KC_F12, XXXXXXX,
+      _______, KC_MPRV, KC_MPLY, KC_MUTE, KC_MNXT, QK_BOOTLOADER,                DF(DVORAK), KC_F9, KC_F10, KC_F11, KC_F12, TG(GAME),
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, KC_VOLU, RGB_SPI,                      DF(COLEMAK), KC_F5, KC_F6, KC_F7, KC_F8, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
@@ -150,6 +150,116 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   )
 };
 
+enum combos {
+    LSEMI_MINS,
+    SHFSEMI_UNDS,
+    COMBO_LENGTH
+};
+uint16_t COMBO_LEN = COMBO_LENGTH;
+
+const uint16_t PROGMEM lsemi_combo[] = {KC_L, KC_SCLN, COMBO_END};
+const uint16_t PROGMEM shfsemi_combo[] = {KC_LSFT, KC_SCLN, COMBO_END};
+
+combo_t key_combos[] = {
+    [LSEMI_MINS] = COMBO(lsemi_combo, KC_MINS),
+    [SHFSEMI_UNDS] = COMBO(shfsemi_combo, KC_UNDS)
+};
+
+#ifdef RGBLIGHT_LAYERS
+#define _GREEN          95, 150, 255
+#define _GOLD           36, 150, 255
+#define _CORAL          11, 176, 255
+const rgblight_segment_t PROGMEM rgb_numpad_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    {10, 4, HSV_CYAN},
+    {15, 6, HSV_CYAN},
+    {21, 1, 170, 220, 255},
+    {26, 1, 10, 255, 255},
+    {33, 8, HSV_BLACK},
+    {41, 1, HSV_CYAN},
+    {42, 12, HSV_BLACK}
+);
+const rgblight_segment_t PROGMEM rgb_nav_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    {9, 2, _GOLD},
+    {17, 2, _GOLD},
+    {23, 1, _GOLD},
+    {36, 2, _GOLD},
+    {44, 2, _GOLD},
+    {50, 1, _GOLD},
+    {13, 1, _GOLD},
+    {35, 1, HSV_YELLOW},
+    {38, 1, HSV_YELLOW},
+    {43, 1, HSV_YELLOW},
+    {46, 1, HSV_YELLOW}
+);
+const rgblight_segment_t PROGMEM rgb_sym_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    {9, 2, _CORAL},
+    {17, 2, _CORAL},
+    {23, 1, _CORAL},
+    {36, 2, _CORAL},
+    {40, 1, _CORAL},
+    {44, 2, _CORAL},
+    {50, 1, _CORAL}
+);
+const rgblight_segment_t PROGMEM rgb_adjust_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    {10, 3, _GREEN},
+    {17, 2, _GREEN},
+    {23, 1, _GREEN},
+    {34, 3, _GREEN}
+);
+const rgblight_segment_t PROGMEM rgb_game_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    {6, 1, HSV_RED},
+    {13, 2, HSV_RED},
+    {24, 3, HSV_RED},
+    {33, 1, HSV_RED},
+    {40, 2, HSV_RED},
+    {51, 3, HSV_RED}
+);
+const rgblight_segment_t PROGMEM rgb_caps_word[] = RGBLIGHT_LAYER_SEGMENTS(
+    {0, 54, HSV_CHARTREUSE}
+);
+const rgblight_segment_t PROGMEM rgb_osm_ctl[] = RGBLIGHT_LAYER_SEGMENTS(
+    {22, 1, HSV_WHITE},
+    {49, 1, HSV_WHITE}
+);
+const rgblight_segment_t PROGMEM rgb_osm_gui[] = RGBLIGHT_LAYER_SEGMENTS(
+    {19, 1, HSV_WHITE},
+    {46, 1, HSV_WHITE}
+);
+const rgblight_segment_t PROGMEM rgb_osm_alt[] = RGBLIGHT_LAYER_SEGMENTS(
+    {16, 1, HSV_WHITE},
+    {43, 1, HSV_WHITE}
+);
+const rgblight_segment_t PROGMEM rgb_osm_sft[] = RGBLIGHT_LAYER_SEGMENTS(
+    {11, 1, HSV_WHITE},
+    {38, 1, HSV_WHITE}
+);
+
+const rgblight_segment_t* const PROGMEM rgb_layers[] = RGBLIGHT_LAYERS_LIST(
+    rgb_numpad_layer,
+    rgb_nav_layer,
+    rgb_sym_layer,
+    rgb_adjust_layer,
+    rgb_game_layer,
+    rgb_caps_word,
+    rgb_osm_ctl,
+    rgb_osm_gui,
+    rgb_osm_alt,
+    rgb_osm_sft
+);
+enum lighting_layers {
+    L_NUMPAD = 0,
+    L_NAV,
+    L_SYM,
+    L_ADJUST,
+    L_GAME,
+    L_CAPSW,
+    L_OSMCTL,
+    L_OSMGUI,
+    L_OSMALT,
+    L_OSMSFT
+};
+#endif
+
 bool caps_word_press_user(uint16_t keycode) {
     switch (keycode) {
         // Keycodes that continue Caps Word, with shift applied.
@@ -171,8 +281,37 @@ bool caps_word_press_user(uint16_t keycode) {
     }
 }
 
+bool is_oneshot_cancel_key(uint16_t keycode) {
+    switch (keycode) {
+        case MO(SYMBOL):
+        case MO(NAV):
+            return true;
+        default:
+            return false;
+    }
+}
+
+bool is_oneshot_ignored_key(uint16_t keycode) {
+    switch (keycode) {
+        case KC_LSFT:
+        case OS_SHFT:
+        case OS_ALT:
+        case OS_CTRL:
+        case OS_GUI:
+        case MO(SYMBOL):
+        case MO(NAV):
+            return true;
+        default:
+            return false;
+    }
+}
+
 bool sw_win_active = false;
 bool sw_ctab_active = false;
+oneshot_state os_shft_state = os_up_unqueued;
+oneshot_state os_ctrl_state = os_up_unqueued;
+oneshot_state os_alt_state = os_up_unqueued;
+oneshot_state os_gui_state = os_up_unqueued;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (!process_layer_lock(keycode, record, LLOCK)) { return false; }
@@ -183,6 +322,22 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     );
     update_shiftable_swapper(
         &sw_ctab_active, KC_LCTL, KC_TAB, SW_CTAB, SW_SCTAB,
+        keycode, record
+    );
+    update_oneshot(
+        &os_shft_state, KC_LSFT, OS_SHFT,
+        keycode, record
+    );
+    update_oneshot(
+        &os_ctrl_state, KC_LCTL, OS_CTRL,
+        keycode, record
+    );
+    update_oneshot(
+        &os_alt_state, KC_LALT, OS_ALT,
+        keycode, record
+    );
+    update_oneshot(
+        &os_gui_state, KC_LGUI, OS_GUI,
         keycode, record
     );
 
@@ -350,6 +505,12 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
 #ifdef RGBLIGHT_TIMEOUT
     if (record->event.pressed) refresh_rgb();
 #endif
+#ifdef RGBLIGHT_LAYERS
+    rgblight_set_layer_state(L_OSMCTL, os_ctrl_state > os_up_unqueued);
+    rgblight_set_layer_state(L_OSMGUI, os_gui_state > os_up_unqueued);
+    rgblight_set_layer_state(L_OSMALT, os_alt_state > os_up_unqueued);
+    rgblight_set_layer_state(L_OSMSFT, os_shft_state > os_up_unqueued);
+#endif
 }
 
 void suspend_power_down_user(void) {
@@ -359,7 +520,7 @@ void suspend_power_down_user(void) {
 }
 
 layer_state_t default_layer_state_set_user(layer_state_t state) {
-    if (layer_state_cmp(state, COLEMAK)) {
+    if (layer_state_cmp(state, DVORAK)) {
         rgblight_mode_noeeprom(RGBLIGHT_MODE_RAINBOW_SWIRL + 4);
     } else if (layer_state_cmp(state, QWERTY)) {
         rgblight_mode_noeeprom(RGBLIGHT_MODE_RAINBOW_MOOD + 2);
@@ -367,101 +528,6 @@ layer_state_t default_layer_state_set_user(layer_state_t state) {
 
     return state;
 }
-
-#ifdef RGBLIGHT_LAYERS
-#define _GREEN          95, 150, 255
-#define _GOLD           36, 150, 255
-#define _CORAL          11, 176, 255
-const rgblight_segment_t PROGMEM rgb_numpad_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {10, 4, HSV_CYAN},
-    {15, 6, HSV_CYAN},
-    {21, 1, 170, 220, 255},
-    {26, 1, 10, 255, 255},
-    {33, 8, HSV_BLACK},
-    {41, 1, HSV_CYAN},
-    {42, 12, HSV_BLACK}
-);
-const rgblight_segment_t PROGMEM rgb_nav_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {9, 2, _GOLD},
-    {17, 2, _GOLD},
-    {23, 1, _GOLD},
-    {36, 2, _GOLD},
-    {44, 2, _GOLD},
-    {50, 1, _GOLD},
-    {13, 1, _GOLD},
-    {35, 1, HSV_YELLOW},
-    {38, 1, HSV_YELLOW},
-    {43, 1, HSV_YELLOW},
-    {46, 1, HSV_YELLOW}
-);
-const rgblight_segment_t PROGMEM rgb_sym_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {9, 2, _CORAL},
-    {17, 2, _CORAL},
-    {23, 1, _CORAL},
-    {36, 2, _CORAL},
-    {40, 1, _CORAL},
-    {44, 2, _CORAL},
-    {50, 1, _CORAL}
-);
-const rgblight_segment_t PROGMEM rgb_adjust_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {10, 3, _GREEN},
-    {17, 2, _GREEN},
-    {23, 1, _GREEN},
-    {34, 3, _GREEN}
-);
-const rgblight_segment_t PROGMEM rgb_game_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {6, 1, HSV_RED},
-    {13, 2, HSV_RED},
-    {24, 3, HSV_RED},
-    {33, 1, HSV_RED},
-    {40, 2, HSV_RED},
-    {51, 3, HSV_RED}
-);
-const rgblight_segment_t PROGMEM rgb_caps_word[] = RGBLIGHT_LAYER_SEGMENTS(
-    {0, 54, HSV_CHARTREUSE}
-);
-const rgblight_segment_t PROGMEM rgb_osm_ctl[] = RGBLIGHT_LAYER_SEGMENTS(
-    {22, 1, HSV_WHITE},
-    {49, 1, HSV_WHITE}
-);
-const rgblight_segment_t PROGMEM rgb_osm_gui[] = RGBLIGHT_LAYER_SEGMENTS(
-    {19, 1, HSV_WHITE},
-    {46, 1, HSV_WHITE}
-);
-const rgblight_segment_t PROGMEM rgb_osm_alt[] = RGBLIGHT_LAYER_SEGMENTS(
-    {16, 1, HSV_WHITE},
-    {43, 1, HSV_WHITE}
-);
-const rgblight_segment_t PROGMEM rgb_osm_sft[] = RGBLIGHT_LAYER_SEGMENTS(
-    {11, 1, HSV_WHITE},
-    {38, 1, HSV_WHITE}
-);
-
-const rgblight_segment_t* const PROGMEM rgb_layers[] = RGBLIGHT_LAYERS_LIST(
-    rgb_numpad_layer,
-    rgb_nav_layer,
-    rgb_sym_layer,
-    rgb_adjust_layer,
-    rgb_game_layer,
-    rgb_caps_word,
-    rgb_osm_ctl,
-    rgb_osm_gui,
-    rgb_osm_alt,
-    rgb_osm_sft
-);
-enum lighting_layers {
-    L_NUMPAD = 0,
-    L_NAV,
-    L_SYM,
-    L_ADJUST,
-    L_GAME,
-    L_CAPSW,
-    L_OSMCTL,
-    L_OSMGUI,
-    L_OSMALT,
-    L_OSMSFT
-};
-#endif
 
 void keyboard_post_init_user(void) {
 #ifdef RGBLIGHT_LAYERS
@@ -489,21 +555,18 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     state = update_tri_layer_state(state, NAV, SYMBOL, MOUSE);
     state = update_tri_layer_state(state, GAME, NAV, GAME_NAV);
 
+    if (get_highest_layer(state) >= COLEMAK && is_combo_enabled()) {
+        combo_disable();
+    } else if (!is_combo_enabled()) {
+        combo_enable();
+    }
+
     return state;
 }
 
 void caps_word_set_user(bool active) {
 #ifdef RGBLIGHT_LAYERS
     rgblight_set_layer_state(L_CAPSW, active);
-#endif
-}
-
-void oneshot_mods_changed_user(uint8_t mods) {
-#ifdef RGBLIGHT_LAYERS
-    rgblight_set_layer_state(L_OSMCTL, mods & MOD_MASK_CTRL);
-    rgblight_set_layer_state(L_OSMGUI, mods & MOD_MASK_GUI);
-    rgblight_set_layer_state(L_OSMALT, mods & MOD_MASK_ALT);
-    rgblight_set_layer_state(L_OSMSFT, mods & MOD_MASK_SHIFT);
 #endif
 }
 
