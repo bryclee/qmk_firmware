@@ -2,7 +2,6 @@
 
 enum crkbd_layers {
     QWERTY = 0,
-    DVORAK,
     COLEMAK,
     GAME,
     NAV,
@@ -21,5 +20,7 @@ enum custom_keycodes {
     OS_CTRL,
     OS_ALT,
     OS_GUI,
-    LLOCK
+    LLOCK,
+    REPEAT,
+    REVREPEAT
 };

@@ -6,4 +6,4 @@ OLED_ENABLE     = no
 LTO_ENABLE      = yes		# Link Time Optimization
 CAPS_WORD_ENABLE = yes
 COMBO_ENABLE 	= yes
-SRC += features/swapper.c features/layer_lock.c features/oneshot.c rgb.c
+SRC += features/swapper.c features/layer_lock.c features/oneshot.c features/repeat_key.c rgb.c

@@ -98,3 +98,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define COMBO_ONLY_FROM_LAYER 0
 #define COMBO_TERM 40
+#define PERMISSIVE_HOLD
+#define TAPPING_FORCE_HOLD
