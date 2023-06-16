@@ -22,7 +22,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "features/layer_lock.h"
 #include "features/oneshot.h"
 #include "features/swapper.h"
-#include "features/repeat_key.h"
 
 #define LT_SPC LT(NAV, KC_SPC)
 #define LT_TAB LT(NAV, KC_TAB)
@@ -34,7 +33,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       MT(MOD_LCTL,KC_ESC),    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                         KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN, KC_QUOT,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LSFT,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,  REPEAT,
+      KC_LSFT,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,  QK_REP,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           KC_LGUI, MO(NAV),  KC_SPC,     KC_LSFT, MO(SYMBOL), TG(NUMPAD)
                                       //`--------------------------'  `--------------------------'
@@ -154,14 +153,14 @@ const uint16_t PROGMEM mins_combo[] = {KC_O, KC_P, COMBO_END};
 const uint16_t PROGMEM unds_combo[] = {KC_L, KC_P, COMBO_END};
 const uint16_t PROGMEM ent_combo[] = {KC_L, KC_SCLN, COMBO_END};
 const uint16_t PROGMEM tab_combo[] = {KC_Q, KC_W, COMBO_END};
-const uint16_t PROGMEM revrepeat_combo[] = {KC_SLSH, REPEAT, COMBO_END};
+const uint16_t PROGMEM revrepeat_combo[] = {KC_SLSH, QK_REP, COMBO_END};
 
 combo_t key_combos[] = {
     [CB_MINS] = COMBO(mins_combo, KC_MINS),
     [CB_UNDS] = COMBO(unds_combo, KC_UNDS),
     [CB_ENT] = COMBO(ent_combo, KC_ENT),
     [CB_TAB] = COMBO(tab_combo, KC_TAB),
-    [CB_REVREPEAT] = COMBO(revrepeat_combo, REVREPEAT),
+    [CB_REVREPEAT] = COMBO(revrepeat_combo, QK_AREP),
 };
 
 #ifdef RGBLIGHT_LAYERS
@@ -310,11 +309,22 @@ bool is_oneshot_ignored_key(uint16_t keycode) {
 }
 
 uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
+    bool ctrl = mods & MOD_MASK_CTRL;
     switch (keycode) {
         case KC_ASTR:
             return KC_HASH;
         case KC_HASH:
             return KC_ASTR;
+        case KC_E:
+            if (ctrl) {
+                return KC_Y;
+            }
+            break;
+        case KC_Y:
+            if (ctrl) {
+                return KC_E;
+            }
+            break;
     }
 
     return KC_TRNS;
@@ -329,7 +339,6 @@ oneshot_state os_gui_state = os_up_unqueued;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (!process_layer_lock(keycode, record, LLOCK)) { return false; }
-    if (!process_repeat_key_with_alt(keycode, record, REPEAT, REVREPEAT)) { return false; }
 
     update_shiftable_swapper(
         &sw_win_active, KC_LALT, KC_TAB, SW_WIN, SW_SWIN,
