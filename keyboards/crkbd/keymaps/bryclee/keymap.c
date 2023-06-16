@@ -70,7 +70,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
       KC_TAB,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                         KC_6,    KC_7,    KC_8,    KC_9,    KC_0, _______,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_ESC, OS_CTRL, OS_GUI, OS_ALT, OS_SHFT, CW_TOGG,                      KC_LEFT, KC_DOWN,   KC_UP, KC_RIGHT, KC_ENT, _______,
+      KC_ESC, OS_CTRL, OS_GUI, OS_ALT, OS_SHFT, KC_CAPS,                      KC_LEFT, KC_DOWN,   KC_UP, KC_RIGHT, KC_ENT, _______,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_LSFT, SW_WIN, SW_SWIN, SW_SCTAB, SW_CTAB, XXXXXXX,                      KC_HOME, KC_PGDN, KC_PGUP, KC_END, KC_DEL, _______,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
@@ -152,7 +152,7 @@ uint16_t COMBO_LEN = COMBO_LENGTH;
 
 const uint16_t PROGMEM mins_combo[] = {KC_O, KC_P, COMBO_END};
 const uint16_t PROGMEM unds_combo[] = {KC_L, KC_P, COMBO_END};
-const uint16_t PROGMEM ent_combo[] = {KC_J, KC_K, KC_L, COMBO_END};
+const uint16_t PROGMEM ent_combo[] = {KC_L, KC_SCLN, COMBO_END};
 const uint16_t PROGMEM tab_combo[] = {KC_Q, KC_W, COMBO_END};
 const uint16_t PROGMEM revrepeat_combo[] = {KC_SLSH, REPEAT, COMBO_END};
 
@@ -310,14 +310,7 @@ bool is_oneshot_ignored_key(uint16_t keycode) {
 }
 
 uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
-    bool shifted = (mods & MOD_MASK_SHIFT);
     switch (keycode) {
-        case KC_ENT:
-            return shifted ? KC_ENT : S(KC_ENT);
-        case KC_TAB:
-            return shifted ? KC_TAB : S(KC_TAB);
-        case KC_N:
-            return shifted ? KC_N : S(KC_N);
         case KC_ASTR:
             return KC_HASH;
         case KC_HASH:
