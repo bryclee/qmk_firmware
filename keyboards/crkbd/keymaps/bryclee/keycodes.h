@@ -12,7 +12,7 @@ enum crkbd_layers {
     NUMPAD
 };
 enum custom_keycodes {
-    SW_WIN = SAFE_RANGE,
+    SW_WIN = QK_USER,
     SW_SWIN,
     SW_CTAB,
     SW_SCTAB,
