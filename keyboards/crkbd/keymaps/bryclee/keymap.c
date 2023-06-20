@@ -151,7 +151,7 @@ uint16_t COMBO_LEN = COMBO_LENGTH;
 
 const uint16_t PROGMEM mins_combo[] = {KC_O, KC_P, COMBO_END};
 const uint16_t PROGMEM unds_combo[] = {KC_L, KC_P, COMBO_END};
-const uint16_t PROGMEM ent_combo[] = {KC_L, KC_SCLN, COMBO_END};
+const uint16_t PROGMEM ent_combo[] = {KC_SCLN, KC_QUOT, COMBO_END};
 const uint16_t PROGMEM tab_combo[] = {KC_Q, KC_W, COMBO_END};
 const uint16_t PROGMEM revrepeat_combo[] = {KC_SLSH, QK_REP, COMBO_END};
 
