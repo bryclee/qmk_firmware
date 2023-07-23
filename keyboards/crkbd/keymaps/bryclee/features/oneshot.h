@@ -4,10 +4,11 @@
 
 // Represents the four states a oneshot key can be in
 typedef enum {
-    os_up_unqueued,
-    os_up_queued,
-    os_down_unused,
-    os_down_used,
+    os_up_unqueued, // not activated
+    os_up_queued, // activated as one shot
+    os_up_dequeued, // queued mod used and to be cleaned up
+    os_down_unused, // key pressed, not used yet
+    os_down_used, // osm key pressed, has been used already
 } oneshot_state;
 
 // Custom oneshot mod implementation that doesn't rely on timers. If a mod is
