@@ -310,21 +310,27 @@ bool is_oneshot_ignored_key(uint16_t keycode) {
 
 uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
     bool ctrl = mods & MOD_MASK_CTRL;
+
+    if (ctrl) {
+        switch(keycode) {
+        case KC_E:
+                return C(KC_Y);
+        case KC_Y:
+                return C(KC_E);
+        }
+
+        return KC_TRNS;
+    }
+
     switch (keycode) {
         case KC_ASTR:
             return KC_HASH;
         case KC_HASH:
             return KC_ASTR;
-        case KC_E:
-            if (ctrl) {
-                return KC_Y;
-            }
-            break;
-        case KC_Y:
-            if (ctrl) {
-                return KC_E;
-            }
-            break;
+        case KC_D:
+            return KC_U;
+        case KC_U:
+            return KC_D;
     }
 
     return KC_TRNS;
@@ -578,12 +584,6 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 
     state = update_tri_layer_state(state, NAV, SYMBOL, MOUSE);
     state = update_tri_layer_state(state, GAME, NAV, GAME_NAV);
-
-    // if (get_highest_layer(state) >= COLEMAK && is_combo_enabled()) {
-    //     combo_disable();
-    // } else if (!is_combo_enabled()) {
-    //     combo_enable();
-    // }
 
     return state;
 }

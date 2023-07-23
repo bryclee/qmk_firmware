@@ -31,27 +31,42 @@ void update_oneshot(
             }
         }
     } else {
-        if (record->event.pressed) {
+        if (*state == os_up_dequeued) {
+            *state = os_up_unqueued;
+            unregister_code(mod);
+        } else if (record->event.pressed) {
             if (is_oneshot_cancel_key(keycode) && *state != os_up_unqueued) {
                 // Cancel oneshot on designated cancel keydown.
                 *state = os_up_unqueued;
                 unregister_code(mod);
-            }
-        } else {
-            if (!is_oneshot_ignored_key(keycode)) {
-                // On non-ignored keyup, consider the oneshot used.
+            } else if (!is_oneshot_ignored_key(keycode)) {
                 switch (*state) {
-                case os_down_unused:
-                    *state = os_down_used;
-                    break;
-                case os_up_queued:
-                    *state = os_up_unqueued;
-                    unregister_code(mod);
-                    break;
-                default:
-                    break;
+                    case os_down_unused:
+                        *state = os_down_used;
+                        break;
+                    case os_up_queued:
+                        *state = os_up_dequeued;
+                        break;
+                    default:
+                        break;
                 }
             }
         }
+        /* else { */
+        /*     if (!is_oneshot_ignored_key(keycode)) { */
+        /*         // On non-ignored keyup, consider the oneshot used. */
+        /*         switch (*state) { */
+        /*         case os_down_unused: */
+        /*             *state = os_down_used; */
+        /*             break; */
+        /*         case os_up_queued: */
+        /*             *state = os_up_unqueued; */
+        /*             unregister_code(mod); */
+        /*             break; */
+        /*         default: */
+        /*             break; */
+        /*         } */
+        /*     } */
+        /* } */
     }
 }
