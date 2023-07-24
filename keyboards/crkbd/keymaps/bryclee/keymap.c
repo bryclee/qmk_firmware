@@ -27,29 +27,29 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LT_TAB LT(NAV, KC_TAB)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [QWERTY] = LAYOUT_split_3x6_3(
-  //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-       LT(ADJUST,KC_TAB),    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                         KC_Y,    KC_U,    KC_I,    KC_O,   KC_P,  KC_BSPC,
-  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      MT(MOD_LCTL,KC_ESC),    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                         KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN, KC_QUOT,
-  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LSFT,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,  QK_REP,
-  //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          KC_LGUI, MO(NAV),  KC_SPC,     KC_LSFT, MO(SYMBOL), TG(NUMPAD)
-                                      //`--------------------------'  `--------------------------'
-
-  ),
-
   [COLEMAK] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
        LT(ADJUST,KC_TAB),   KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,                         KC_J,    KC_L,    KC_U,    KC_Y,   KC_SCLN,  KC_BSPC,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       MT(MOD_LCTL,KC_ESC),    KC_A,    KC_R,    KC_S,    KC_T,    KC_D,                         KC_H,    KC_N,    KC_E,    KC_I, KC_O, KC_QUOT,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      _______,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_K,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,  _______,
+      QK_REP,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_K,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,  KC_ENT,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          KC_LGUI, _______,  _______,     _______, _______, TG(NUMPAD)
+                                          KC_LALT, MO(NAV),  KC_SPC,     KC_LSFT, MO(SYMBOL), TG(NUMPAD)
                                       //`--------------------------'  `--------------------------'
+  ),
+
+  [QWERTY] = LAYOUT_split_3x6_3(
+  //,-----------------------------------------------------.                    ,-----------------------------------------------------.
+       LT(ADJUST,KC_TAB),    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                         KC_Y,    KC_U,    KC_I,    KC_O,   KC_P,  KC_BSPC,
+  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+      MT(MOD_LCTL,KC_ESC),    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                         KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN, KC_QUOT,
+  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+      _______,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,  _______,
+  //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
+                                          _______, _______,  _______,     _______, _______, _______
+                                      //`--------------------------'  `--------------------------'
+
   ),
 
   [GAME] = LAYOUT_split_3x6_3(
@@ -71,9 +71,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_ESC, OS_CTRL, OS_GUI, OS_ALT, OS_SHFT, KC_CAPS,                      KC_LEFT, KC_DOWN,   KC_UP, KC_RIGHT, KC_ENT, _______,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LSFT, SW_WIN, SW_SWIN, SW_SCTAB, SW_CTAB, XXXXXXX,                      KC_HOME, KC_PGDN, KC_PGUP, KC_END, KC_DEL, _______,
+      KC_LSFT, SW_WIN, SW_SWIN, SW_SCTAB, SW_CTAB, XXXXXXX,                      KC_HOME, KC_PGDN, KC_PGUP, KC_END, KC_DEL, QK_AREP,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          _______, _______,  _______,     KC_ENT, _______, LLOCK
+                                          _______, _______,  _______,     _______, _______, LLOCK
                                       //`--------------------------'  `--------------------------'
   ),
 
@@ -95,7 +95,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       _______, KC_GRV, KC_EQL, KC_LBRC, KC_RBRC, KC_BSLS,                      KC_MINS,  OS_SHFT, OS_ALT, OS_GUI, OS_CTRL,  XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      _______, KC_TILD, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE,                      KC_UNDS, XXXXXXX, KC_LT, KC_GT, KC_QUES, _______,
+      CW_TOGG, KC_TILD, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE,                      KC_UNDS, XXXXXXX, KC_LT, KC_GT, KC_QUES, _______,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           _______, _______,  KC_SPC,     _______, _______, _______
                                       //`--------------------------'  `--------------------------'
@@ -144,23 +144,23 @@ enum combos {
     CB_UNDS,
     CB_ENT,
     CB_TAB,
-    CB_REVREPEAT,
+    CB_AREP,
     COMBO_LENGTH
 };
 uint16_t COMBO_LEN = COMBO_LENGTH;
 
-const uint16_t PROGMEM mins_combo[] = {KC_O, KC_P, COMBO_END};
-const uint16_t PROGMEM unds_combo[] = {KC_L, KC_P, COMBO_END};
-const uint16_t PROGMEM ent_combo[] = {KC_SCLN, KC_QUOT, COMBO_END};
+const uint16_t PROGMEM mins_combo[] = {KC_Y, KC_SCLN, COMBO_END};
+const uint16_t PROGMEM unds_combo[] = {KC_I, KC_SCLN, COMBO_END};
+const uint16_t PROGMEM ent_combo[] = {KC_O, KC_QUOT, COMBO_END};
 const uint16_t PROGMEM tab_combo[] = {KC_Q, KC_W, COMBO_END};
-const uint16_t PROGMEM revrepeat_combo[] = {KC_SLSH, QK_REP, COMBO_END};
+const uint16_t PROGMEM revrepeat_combo[] = {QK_REP, KC_Z, COMBO_END};
 
 combo_t key_combos[] = {
     [CB_MINS] = COMBO(mins_combo, KC_MINS),
     [CB_UNDS] = COMBO(unds_combo, KC_UNDS),
     [CB_ENT] = COMBO(ent_combo, KC_ENT),
     [CB_TAB] = COMBO(tab_combo, KC_TAB),
-    [CB_REVREPEAT] = COMBO(revrepeat_combo, QK_AREP),
+    [CB_AREP] = COMBO(revrepeat_combo, QK_AREP),
 };
 
 #ifdef RGBLIGHT_LAYERS
