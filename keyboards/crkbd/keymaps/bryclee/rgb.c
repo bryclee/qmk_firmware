@@ -5,12 +5,12 @@
 #ifdef RGB_MATRIX_ENABLE
 static const uint8_t toprow_keys[] = { 9, 10, 17, 18, 23, 36, 37, 44, 45, 50 };
 
-void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     if (is_caps_word_on()) {
         for (uint8_t i = led_min; i <= led_max; i++) {
             rgb_matrix_set_color(i, RGB_CHARTREUSE);
         }
-        return;
+        return false;
     }
 
     if (IS_LAYER_ON(ADJUST)) {
@@ -58,6 +58,7 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
             }
         }
     }
+    return false;
 }
 #endif
 

@@ -93,9 +93,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
       _______, KC_EXLM,   KC_AT, KC_HASH,  KC_DLR, KC_PERC,                      KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, _______,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      _______, KC_GRV, KC_EQL, KC_LBRC, KC_RBRC, KC_BSLS,                      KC_MINS,  OS_SHFT, OS_ALT, OS_GUI, OS_CTRL,  XXXXXXX,
+      _______, KC_GRV, KC_EQL, KC_LBRC, KC_RBRC, KC_BSLS,                      _______,  OS_SHFT, OS_ALT, OS_GUI, OS_CTRL,  XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      CW_TOGG, KC_TILD, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE,                      KC_UNDS, XXXXXXX, KC_LT, KC_GT, KC_QUES, _______,
+      CW_TOGG, KC_TILD, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE,                      KC_UNDS, KC_MINS, KC_LT, KC_GT, KC_QUES, _______,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           _______, _______,  KC_SPC,     _______, _______, _______
                                       //`--------------------------'  `--------------------------'
@@ -550,11 +550,13 @@ void suspend_power_down_user(void) {
 }
 
 layer_state_t default_layer_state_set_user(layer_state_t state) {
+#ifdef RGBLIGHT_LAYERS
     if (layer_state_cmp(state, COLEMAK)) {
         rgblight_mode_noeeprom(RGBLIGHT_MODE_RAINBOW_SWIRL + 4);
     } else if (layer_state_cmp(state, QWERTY)) {
         rgblight_mode_noeeprom(RGBLIGHT_MODE_RAINBOW_MOOD + 2);
     }
+#endif
 
     return state;
 }
