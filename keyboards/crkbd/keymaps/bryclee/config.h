@@ -20,8 +20,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Select hand configuration */
 
-// #define MASTER_LEFT
-#define MASTER_RIGHT
+#define MASTER_LEFT
+// #define MASTER_RIGHT
 // #define EE_HANDS
 
 #ifdef RGBLIGHT_ENABLE
@@ -98,5 +98,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define COMBO_ONLY_FROM_LAYER 0
 #define COMBO_TERM 40
+#define COMBO_TERM_PER_COMBO
 #define PERMISSIVE_HOLD
 #define TAPPING_FORCE_HOLD
+#define TAPPING_TERM 200
+#define QUICK_TAP_TERM 0

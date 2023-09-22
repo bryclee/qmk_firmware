@@ -26,18 +26,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LT_SPC LT(NAV, KC_SPC)
 #define LT_TAB LT(NAV, KC_TAB)
 
+// Bottom mods
+#define BRM_Z KC_Z
+#define BRM_X KC_X
+#define BRM_C KC_C
+#define BRM_V KC_V
+#define BRM_M KC_M
+#define BRM_COMM KC_COMM
+#define BRM_DOT KC_DOT
+#define BRM_SLSH KC_SLSH
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [COLEMAK] = LAYOUT_split_3x6_3(
-  //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-       LT(ADJUST,KC_TAB),   KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,                         KC_J,    KC_L,    KC_U,    KC_Y,   KC_SCLN,  KC_BSPC,
-  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      MT(MOD_LCTL,KC_ESC),    KC_A,    KC_R,    KC_S,    KC_T,    KC_D,                         KC_H,    KC_N,    KC_E,    KC_I, KC_O, KC_QUOT,
-  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      QK_REP,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_K,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,  KC_ENT,
-  //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          KC_LALT, MO(NAV),  KC_SPC,     KC_LSFT, MO(SYMBOL), TG(NUMPAD)
-                                      //`--------------------------'  `--------------------------'
-  ),
 
   [QWERTY] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
@@ -45,11 +44,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       MT(MOD_LCTL,KC_ESC),    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                         KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN, KC_QUOT,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      _______,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,  _______,
+      QK_REP,    BRM_Z,    BRM_X,    BRM_C,    BRM_V,    KC_B,                         KC_N,    BRM_M, BRM_COMM,  BRM_DOT, BRM_SLSH,  KC_ENT,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          _______, _______,  _______,     _______, _______, _______
+                                          DF(QWERTY), MO(NAV),  KC_SPC,     KC_LSFT, MO(SYMBOL), TG(NUMPAD)
                                       //`--------------------------'  `--------------------------'
+  ),
 
+  [COLEMAK] = LAYOUT_split_3x6_3(
+  //,-----------------------------------------------------.                    ,-----------------------------------------------------.
+       LT(ADJUST,KC_TAB),   KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,                         KC_J,    KC_L,    KC_U,    KC_Y,   KC_SCLN,  KC_BSPC,
+  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+      MT(MOD_LCTL,KC_ESC), KC_A, KC_R, KC_S, KC_T,    KC_D,                         KC_H, KC_N, KC_E, KC_I, KC_O, KC_QUOT,
+  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+      QK_REP,    BRM_Z,    BRM_X,    BRM_C,    BRM_V,    KC_B,                         KC_K,    BRM_M, BRM_COMM,  BRM_DOT, BRM_SLSH,  KC_ENT,
+  //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
+                                          DF(QWERTY), MO(NAV),  KC_SPC,     KC_LSFT, MO(SYMBOL), TG(NUMPAD)
+                                      //`--------------------------'  `--------------------------'
   ),
 
   [GAME] = LAYOUT_split_3x6_3(
@@ -69,9 +79,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
       KC_TAB,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                         KC_6,    KC_7,    KC_8,    KC_9,    KC_0, _______,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_ESC, OS_CTRL, OS_GUI, OS_ALT, OS_SHFT, KC_CAPS,                      KC_LEFT, KC_DOWN,   KC_UP, KC_RIGHT, KC_ENT, _______,
+      KC_ESC, OS_CTRL, OS_GUI, OS_ALT, OS_SHFT, CW_TOGG,                      KC_LEFT, KC_DOWN,   KC_UP, KC_RIGHT, KC_ENT, _______,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LSFT, SW_WIN, SW_SWIN, SW_SCTAB, SW_CTAB, XXXXXXX,                      KC_HOME, KC_PGDN, KC_PGUP, KC_END, KC_DEL, QK_AREP,
+      KC_LSFT, SW_WIN, SW_SWIN, SW_SCTAB, SW_CTAB, XXXXXXX,                      KC_HOME, KC_PGDN, KC_PGUP, KC_END, KC_DEL, _______,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           _______, _______,  _______,     _______, _______, LLOCK
                                       //`--------------------------'  `--------------------------'
@@ -118,9 +128,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
       _______, KC_MPRV, KC_MPLY, KC_MUTE, KC_MNXT, QK_BOOTLOADER,                XXXXXXX, KC_F9, KC_F10, KC_F11, KC_F12, TG(GAME),
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, KC_VOLU, RGB_SPI,                      DF(COLEMAK), KC_F5, KC_F6, KC_F7, KC_F8, XXXXXXX,
+      KC_CAPS, RGB_HUI, RGB_SAI, KC_BRIU, KC_VOLU, KC_CAPS,                      DF(COLEMAK), KC_F5, KC_F6, KC_F7, KC_F8, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD, KC_VOLD, RGB_SPD,                      DF(QWERTY), KC_F1, KC_F2, KC_F3, KC_F4, KC_RSFT,
+      RGB_TOG, RGB_MOD, RGB_VAI, KC_BRID, KC_VOLD, _______,                      DF(QWERTY), KC_F1, KC_F2, KC_F3, KC_F4, KC_RSFT,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           _______, _______,  _______,     KC_RALT, KC_RGUI, KC_RCTL
                                       //`--------------------------'  `--------------------------'
@@ -149,11 +159,11 @@ enum combos {
 };
 uint16_t COMBO_LEN = COMBO_LENGTH;
 
-const uint16_t PROGMEM mins_combo[] = {KC_Y, KC_SCLN, COMBO_END};
-const uint16_t PROGMEM unds_combo[] = {KC_I, KC_SCLN, COMBO_END};
-const uint16_t PROGMEM ent_combo[] = {KC_O, KC_QUOT, COMBO_END};
-const uint16_t PROGMEM tab_combo[] = {KC_Q, KC_W, COMBO_END};
-const uint16_t PROGMEM revrepeat_combo[] = {QK_REP, KC_Z, COMBO_END};
+const uint16_t PROGMEM mins_combo[] = {KC_O, KC_P, COMBO_END};
+const uint16_t PROGMEM unds_combo[] = {KC_L, KC_P, COMBO_END};
+const uint16_t PROGMEM ent_combo[] = {KC_J, KC_K, KC_L, COMBO_END};
+const uint16_t PROGMEM tab_combo[] = {KC_S, KC_D, KC_F, COMBO_END};
+const uint16_t PROGMEM revrepeat_combo[] = {QK_REP, BRM_Z, COMBO_END};
 
 combo_t key_combos[] = {
     [CB_MINS] = COMBO(mins_combo, KC_MINS),
@@ -162,6 +172,19 @@ combo_t key_combos[] = {
     [CB_TAB] = COMBO(tab_combo, KC_TAB),
     [CB_AREP] = COMBO(revrepeat_combo, QK_AREP),
 };
+
+uint16_t get_combo_term(uint16_t index, combo_t *combo) {
+    switch (index) {
+        case CB_ENT:
+            return 35;
+        case CB_TAB:
+            return 35;
+        case CB_MINS:
+        case CB_UNDS:
+            return 25;
+    }
+    return COMBO_TERM;
+}
 
 #ifdef RGBLIGHT_LAYERS
 #define _GREEN          95, 150, 255
@@ -334,6 +357,19 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
     }
 
     return KC_TRNS;
+}
+
+bool remember_last_key_user(uint16_t keycode, keyrecord_t* record,
+                            uint8_t* remembered_mods) {
+    switch (keycode) {
+        case OS_SHFT:
+        case OS_ALT:
+        case OS_CTRL:
+        case OS_GUI:
+            return false;
+        default:
+            return true;
+    }
 }
 
 bool sw_win_active = false;
@@ -551,11 +587,11 @@ void suspend_power_down_user(void) {
 
 layer_state_t default_layer_state_set_user(layer_state_t state) {
 #ifdef RGBLIGHT_LAYERS
-    if (layer_state_cmp(state, COLEMAK)) {
-        rgblight_mode_noeeprom(RGBLIGHT_MODE_RAINBOW_SWIRL + 4);
-    } else if (layer_state_cmp(state, QWERTY)) {
-        rgblight_mode_noeeprom(RGBLIGHT_MODE_RAINBOW_MOOD + 2);
-    }
+    /* if (layer_state_cmp(state, colemak)) { */
+    /*     rgblight_mode_noeeprom(rgblight_mode_rainbow_swirl + 4); */
+    /* } else if (layer_state_cmp(state, qwerty)) { */
+    /*     rgblight_mode_noeeprom(rgblight_mode_rainbow_mood + 2); */
+    /* } */
 #endif
 
     return state;
