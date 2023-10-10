@@ -19,7 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 /* Select hand configuration */
-
 #define MASTER_LEFT
 // #define MASTER_RIGHT
 // #define EE_HANDS
@@ -96,8 +95,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define DOUBLE_TAP_SHIFT_TURNS_ON_CAPS_WORD
 
-#define COMBO_ONLY_FROM_LAYER 0
-#define COMBO_TERM 40
+#define COMBO_ONLY_FROM_LAYER 1
+#define COMBO_TERM 35
 #define COMBO_TERM_PER_COMBO
 #define PERMISSIVE_HOLD
 #define TAPPING_FORCE_HOLD
