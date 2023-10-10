@@ -105,7 +105,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       _______, KC_GRV, KC_EQL, KC_LBRC, KC_RBRC, KC_BSLS,                      _______,  OS_SHFT, OS_ALT, OS_GUI, OS_CTRL,  XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      CW_TOGG, KC_TILD, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE,                      KC_UNDS, KC_MINS, KC_LT, KC_GT, KC_QUES, _______,
+      _______, KC_TILD, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE,                      KC_UNDS, KC_MINS, KC_LT, KC_GT, KC_QUES, _______,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           _______, _______,  KC_SPC,     _______, _______, _______
                                       //`--------------------------'  `--------------------------'
@@ -153,7 +153,6 @@ enum combos {
     CB_MINS,
     CB_UNDS,
     CB_ENT,
-    CB_TAB,
     CB_AREP,
     COMBO_LENGTH
 };
@@ -161,27 +160,27 @@ uint16_t COMBO_LEN = COMBO_LENGTH;
 
 const uint16_t PROGMEM mins_combo[] = {KC_O, KC_P, COMBO_END};
 const uint16_t PROGMEM unds_combo[] = {KC_L, KC_P, COMBO_END};
-const uint16_t PROGMEM ent_combo[] = {KC_J, KC_K, KC_L, COMBO_END};
-const uint16_t PROGMEM tab_combo[] = {KC_S, KC_D, KC_F, COMBO_END};
+const uint16_t PROGMEM ent_combo[] = {KC_SCLN, KC_QUOT, COMBO_END};
 const uint16_t PROGMEM revrepeat_combo[] = {QK_REP, BRM_Z, COMBO_END};
 
 combo_t key_combos[] = {
     [CB_MINS] = COMBO(mins_combo, KC_MINS),
     [CB_UNDS] = COMBO(unds_combo, KC_UNDS),
     [CB_ENT] = COMBO(ent_combo, KC_ENT),
-    [CB_TAB] = COMBO(tab_combo, KC_TAB),
     [CB_AREP] = COMBO(revrepeat_combo, QK_AREP),
 };
 
 uint16_t get_combo_term(uint16_t index, combo_t *combo) {
     switch (index) {
-        case CB_ENT:
-            return 35;
-        case CB_TAB:
-            return 35;
-        case CB_MINS:
-        case CB_UNDS:
-            return 25;
+        /* case CB_ENT: */
+        /*     return 35; */
+        /* case CB_TAB: */
+        /*     return 35; */
+        /* case CB_MINS: */
+        /* case CB_UNDS: */
+        /* case CB_ESC: */
+        /* case CB_BSPC: */
+        /*     return 20; */
     }
     return COMBO_TERM;
 }

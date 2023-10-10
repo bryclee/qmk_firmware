@@ -1,8 +1,8 @@
 #pragma once
 
 enum crkbd_layers {
-    QWERTY = 0,
-    COLEMAK,
+    COLEMAK = 0,
+    QWERTY,
     GAME,
     NAV,
     GAME_NAV,
