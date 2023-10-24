@@ -130,7 +130,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_CAPS, RGB_HUI, RGB_SAI, KC_BRIU, KC_VOLU, KC_CAPS,                      DF(COLEMAK), KC_F5, KC_F6, KC_F7, KC_F8, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      RGB_TOG, RGB_MOD, RGB_VAI, KC_BRID, KC_VOLD, _______,                      DF(QWERTY), KC_F1, KC_F2, KC_F3, KC_F4, KC_RSFT,
+      RGB_TOG, RGB_MOD, RGB_VAI, KC_BRID, KC_VOLD, EE_CLR,                      DF(QWERTY), KC_F1, KC_F2, KC_F3, KC_F4, KC_RSFT,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           _______, _______,  _______,     KC_RALT, KC_RGUI, KC_RCTL
                                       //`--------------------------'  `--------------------------'
@@ -152,33 +152,47 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 enum combos {
     CB_MINS,
     CB_UNDS,
+    CB_DQUO,
     CB_ENT,
+    CB_BSPC,
+    CB_TAB,
+    CB_ESC,
     CB_AREP,
     COMBO_LENGTH
 };
 uint16_t COMBO_LEN = COMBO_LENGTH;
 
-const uint16_t PROGMEM mins_combo[] = {KC_O, KC_P, COMBO_END};
-const uint16_t PROGMEM unds_combo[] = {KC_L, KC_P, COMBO_END};
+const uint16_t PROGMEM mins_combo[] = {KC_U, KC_I, COMBO_END};
+const uint16_t PROGMEM unds_combo[] = {KC_J, KC_I, COMBO_END};
+const uint16_t PROGMEM dquo_combo[] = {KC_P, KC_QUOT, COMBO_END};
 const uint16_t PROGMEM ent_combo[] = {KC_SCLN, KC_QUOT, COMBO_END};
+const uint16_t PROGMEM bspc_combo[] = {KC_I, KC_O, COMBO_END};
+const uint16_t PROGMEM esc_combo[] = {KC_Q, KC_W, COMBO_END};
+const uint16_t PROGMEM tab_combo[] = {KC_W, KC_E, COMBO_END};
 const uint16_t PROGMEM revrepeat_combo[] = {QK_REP, BRM_Z, COMBO_END};
 
 combo_t key_combos[] = {
     [CB_MINS] = COMBO(mins_combo, KC_MINS),
     [CB_UNDS] = COMBO(unds_combo, KC_UNDS),
+    [CB_DQUO] = COMBO(dquo_combo, KC_DQUO),
     [CB_ENT] = COMBO(ent_combo, KC_ENT),
+    [CB_BSPC] = COMBO(bspc_combo, KC_BSPC),
+    [CB_TAB] = COMBO(tab_combo, KC_TAB),
+    [CB_ESC] = COMBO(esc_combo, KC_ESC),
     [CB_AREP] = COMBO(revrepeat_combo, QK_AREP),
 };
 
 uint16_t get_combo_term(uint16_t index, combo_t *combo) {
     switch (index) {
-        /* case CB_ENT: */
-        /*     return 35; */
+        case CB_ENT:
+            return 30;
+        case CB_UNDS:
+        case CB_DQUO:
+            return 25;
         /* case CB_TAB: */
-        /*     return 35; */
-        /* case CB_MINS: */
-        /* case CB_UNDS: */
         /* case CB_ESC: */
+        /*     return 30; */
+        /* case CB_MINS: */
         /* case CB_BSPC: */
         /*     return 20; */
     }

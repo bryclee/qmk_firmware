@@ -24,16 +24,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define EE_HANDS
 
 #ifdef RGBLIGHT_ENABLE
-    #define RGBLIGHT_EFFECT_BREATHING
-    #define RGBLIGHT_EFFECT_RAINBOW_MOOD
-    #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
-    #define RGBLIGHT_EFFECT_SNAKE
+    /* #define RGBLIGHT_EFFECT_BREATHING */
+    /* #define RGBLIGHT_EFFECT_RAINBOW_MOOD */
+    /* #define RGBLIGHT_EFFECT_RAINBOW_SWIRL */
+    /* #define RGBLIGHT_EFFECT_SNAKE */
     #define RGBLIGHT_EFFECT_KNIGHT
-    #define RGBLIGHT_EFFECT_CHRISTMAS
-    // #define RGBLIGHT_EFFECT_STATIC_GRADIENT
+    /* #define RGBLIGHT_EFFECT_CHRISTMAS */
+    #define RGBLIGHT_EFFECT_STATIC_GRADIENT
 //  #define RGBLIGHT_EFFECT_RGB_TEST
-//  #define RGBLIGHT_EFFECT_ALTERNATING
-//  #define RGBLIGHT_EFFECT_TWINKLE
+    /* #define RGBLIGHT_EFFECT_ALTERNATING */
+    /* #define RGBLIGHT_EFFECT_TWINKLE */
     #define RGBLIGHT_LIMIT_VAL 120
     #define RGBLIGHT_HUE_STEP 10
     #define RGBLIGHT_SAT_STEP 17
@@ -44,7 +44,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #define RGBLIGHT_MAX_LAYERS 10
     // #define RGBLIGHT_WAKEUP_ANIMATION
     // #define SPLIT_TRANSACTION_IDS_USER USER_SYNC_ANIM
-    #define RGBLIGHT_DEFAULT_SAT 170
+    #define RGBLIGHT_DEFAULT_SAT 191
+    #define RGBLIGHT_DEFAULT_HUE 80
+    #define RGBLIGHT_DEFAULT_VAL 86
 #endif
 
 #ifdef RGB_MATRIX_ENABLE
@@ -96,7 +98,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DOUBLE_TAP_SHIFT_TURNS_ON_CAPS_WORD
 
 #define COMBO_ONLY_FROM_LAYER 1
-#define COMBO_TERM 35
+#define COMBO_TERM 20
 #define COMBO_TERM_PER_COMBO
 #define PERMISSIVE_HOLD
 #define TAPPING_FORCE_HOLD
