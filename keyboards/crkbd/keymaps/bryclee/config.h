@@ -47,6 +47,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #define RGBLIGHT_DEFAULT_SAT 191
     #define RGBLIGHT_DEFAULT_HUE 80
     #define RGBLIGHT_DEFAULT_VAL 86
+
+    #define RGBLIGHT_LAYERS_RETAIN_VAL
 #endif
 
 #ifdef RGB_MATRIX_ENABLE
