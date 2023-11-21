@@ -45,9 +45,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       MT(MOD_LCTL,KC_ESC),    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                         KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN, KC_QUOT,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LSFT,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,  QK_REP,
+      QK_REP,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,  KC_ENT,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          DF(QWERTY), MO(NAV),  KC_SPC,     KC_ENT, MO(SYMBOL), TG(NUMPAD)
+                                          DF(QWERTY), MO(NAV),  KC_SPC,     KC_LSFT, MO(SYMBOL), TG(NUMPAD)
                                       //`--------------------------'  `--------------------------'
   ),
 
@@ -57,9 +57,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       MT(MOD_LCTL,KC_ESC), KC_A, KC_R, KC_S, KC_T,    KC_D,                         KC_H, KC_N, KC_E, KC_I, KC_O, KC_QUOT,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LSFT,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_K,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,  QK_REP,
+      QK_REP,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_K,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,  KC_ENT,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          DF(QWERTY), MO(NAV),  KC_SPC,     KC_ENT, MO(SYMBOL), TG(NUMPAD)
+                                          DF(QWERTY), MO(NAV),  KC_SPC,     KC_LSFT, MO(SYMBOL), TG(NUMPAD)
                                       //`--------------------------'  `--------------------------'
   ),
 
@@ -81,9 +81,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       /* KC_TAB,   KC_ESC,  KC_TAB,  QK_REP, QK_AREP, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_BSPC, _______, */
       _______,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                         KC_6,    KC_7,    KC_8,    KC_9,    KC_0, _______,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_ESC, OS_CTRL, OS_GUI, OS_ALT, OS_SHFT, KC_TAB,                      KC_LEFT, KC_DOWN,   KC_UP, KC_RIGHT, KC_ENT, KC_BSPC,
+      KC_ESC, OS_CTRL, OS_GUI, OS_ALT, OS_SHFT, KC_TAB,                      KC_LEFT, KC_DOWN,   KC_UP, KC_RIGHT, KC_BSPC, KC_ENT,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      QK_REP, SW_WIN, SW_SWIN, SW_SCTAB, SW_CTAB, QK_AREP,                      KC_HOME, KC_PGDN, KC_PGUP, KC_END, KC_DEL, _______,
+      KC_LSFT, SW_WIN, SW_SWIN, SW_SCTAB, SW_CTAB, QK_AREP,                      KC_HOME, KC_PGDN, KC_PGUP, KC_END, KC_DEL, _______,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           _______, _______,  _______,     _______, _______, LLOCK
                                       //`--------------------------'  `--------------------------'
@@ -156,14 +156,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 enum combos { CB_MINS, CB_UNDS, CB_DQUO, CB_ENT, CB_BSPC, CB_TAB, CB_ESC, CB_AREP, COMBO_LENGTH };
 uint16_t COMBO_LEN = COMBO_LENGTH;
 
-const uint16_t PROGMEM mins_combo[] = {KC_U, KC_I, COMBO_END};
-const uint16_t PROGMEM unds_combo[] = {KC_J, KC_I, COMBO_END};
+const uint16_t PROGMEM mins_combo[] = {KC_O, KC_P, COMBO_END};
+const uint16_t PROGMEM unds_combo[] = {KC_L, KC_P, COMBO_END};
 const uint16_t PROGMEM dquo_combo[] = {KC_P, KC_QUOT, COMBO_END};
 const uint16_t PROGMEM ent_combo[]  = {KC_SCLN, KC_QUOT, COMBO_END};
 const uint16_t PROGMEM bspc_combo[] = {KC_I, KC_O, COMBO_END};
 const uint16_t PROGMEM esc_combo[]  = {KC_Q, KC_W, COMBO_END};
 const uint16_t PROGMEM tab_combo[]  = {KC_W, KC_E, COMBO_END};
-const uint16_t PROGMEM arep_combo[] = {QK_REP, KC_SLSH, COMBO_END};
+const uint16_t PROGMEM arep_combo[] = {QK_REP, KC_Z, COMBO_END};
 
 combo_t key_combos[] = {
     [CB_MINS] = COMBO(mins_combo, KC_MINS), [CB_UNDS] = COMBO(unds_combo, KC_UNDS),
