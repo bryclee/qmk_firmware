@@ -24,45 +24,46 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define EE_HANDS
 
 #ifdef RGBLIGHT_ENABLE
-    /* #define RGBLIGHT_EFFECT_BREATHING */
-    /* #define RGBLIGHT_EFFECT_RAINBOW_MOOD */
-    /* #define RGBLIGHT_EFFECT_RAINBOW_SWIRL */
-    /* #define RGBLIGHT_EFFECT_SNAKE */
-    #define RGBLIGHT_EFFECT_KNIGHT
-    /* #define RGBLIGHT_EFFECT_CHRISTMAS */
-    #define RGBLIGHT_EFFECT_STATIC_GRADIENT
+/* #define RGBLIGHT_EFFECT_BREATHING */
+/* #define RGBLIGHT_EFFECT_RAINBOW_MOOD */
+/* #define RGBLIGHT_EFFECT_RAINBOW_SWIRL */
+/* #define RGBLIGHT_EFFECT_SNAKE */
+#    define RGBLIGHT_EFFECT_KNIGHT
+/* #define RGBLIGHT_EFFECT_CHRISTMAS */
+#    define RGBLIGHT_EFFECT_STATIC_GRADIENT
 //  #define RGBLIGHT_EFFECT_RGB_TEST
-    /* #define RGBLIGHT_EFFECT_ALTERNATING */
-    /* #define RGBLIGHT_EFFECT_TWINKLE */
-    #define RGBLIGHT_LIMIT_VAL 120
-    #define RGBLIGHT_HUE_STEP 10
-    #define RGBLIGHT_SAT_STEP 17
-    #define RGBLIGHT_VAL_STEP 17
-    // #define RGBLIGHT_SLEEP
-    #define RGBLIGHT_TIMEOUT 60000
-    #define RGBLIGHT_LAYERS
-    #define RGBLIGHT_MAX_LAYERS 10
-    // #define RGBLIGHT_WAKEUP_ANIMATION
-    // #define SPLIT_TRANSACTION_IDS_USER USER_SYNC_ANIM
-    #define RGBLIGHT_DEFAULT_SAT 191
-    #define RGBLIGHT_DEFAULT_HUE 80
-    #define RGBLIGHT_DEFAULT_VAL 86
+/* #define RGBLIGHT_EFFECT_ALTERNATING */
+/* #define RGBLIGHT_EFFECT_TWINKLE */
+#    define RGBLIGHT_LIMIT_VAL 120
+#    define RGBLIGHT_HUE_STEP 10
+#    define RGBLIGHT_SAT_STEP 17
+#    define RGBLIGHT_VAL_STEP 17
+// #define RGBLIGHT_SLEEP
+#    define RGBLIGHT_TIMEOUT 60000
+#    define RGBLIGHT_LAYERS
+#    define RGBLIGHT_MAX_LAYERS 10
+// #define RGBLIGHT_WAKEUP_ANIMATION
+// #define SPLIT_TRANSACTION_IDS_USER USER_SYNC_ANIM
+#    define RGBLIGHT_DEFAULT_SAT 191
+#    define RGBLIGHT_DEFAULT_HUE 80
+#    define RGBLIGHT_DEFAULT_VAL 86
 
-    #define RGBLIGHT_LAYERS_RETAIN_VAL
+#    define RGBLIGHT_LAYERS_RETAIN_VAL
 #endif
 
 #ifdef RGB_MATRIX_ENABLE
-#   define RGB_MATRIX_FRAMEBUFFER_EFFECTS
-#   define RGB_MATRIX_MAXIMUM_BRIGHTNESS 150 // limits maximum brightness of LEDs to 150 out of 255. Higher may cause the controller to crash.
-#   define RGB_MATRIX_HUE_STEP 8
-#   define RGB_MATRIX_SAT_STEP 8
-#   define RGB_MATRIX_VAL_STEP 8
-#   define RGB_MATRIX_SPD_STEP 10
-#   define RGB_MATRIX_STARTUP_SPD 50
-#   define RGB_DISABLE_TIMEOUT 60000
-#   define SPLIT_LAYER_STATE_ENABLE
+#    define RGB_MATRIX_FRAMEBUFFER_EFFECTS
+#    define RGB_MATRIX_MAXIMUM_BRIGHTNESS \
+        150 // limits maximum brightness of LEDs to 150 out of 255. Higher may cause the controller to crash.
+#    define RGB_MATRIX_HUE_STEP 8
+#    define RGB_MATRIX_SAT_STEP 8
+#    define RGB_MATRIX_VAL_STEP 8
+#    define RGB_MATRIX_SPD_STEP 10
+#    define RGB_MATRIX_STARTUP_SPD 50
+#    define RGB_DISABLE_TIMEOUT 60000
+#    define SPLIT_LAYER_STATE_ENABLE
 
-#   define RGB_MATRIX_KEYPRESSES
+#    define RGB_MATRIX_KEYPRESSES
 // #    define ENABLE_RGB_MATRIX_ALPHAS_MODS
 // #    define ENABLE_RGB_MATRIX_GRADIENT_UP_DOWN
 // #    define ENABLE_RGB_MATRIX_GRADIENT_LEFT_RIGHT
@@ -92,7 +93,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define ENABLE_RGB_MATRIX_PIXEL_RAIN
 // #    define ENABLE_RGB_MATRIX_PIXEL_FLOW
 // #    define ENABLE_RGB_MATRIX_PIXEL_FRACTAL
-#   define ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTICROSS
+#    define ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTICROSS
 #endif
 
 // #define DYNAMIC_KEYMAP_LAYER_COUNT 8 // only needed for Via
@@ -100,8 +101,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DOUBLE_TAP_SHIFT_TURNS_ON_CAPS_WORD
 
 #define COMBO_ONLY_FROM_LAYER 1
-#define COMBO_TERM 20
-#define COMBO_TERM_PER_COMBO
+#define COMBO_TERM 30
+// #define COMBO_TERM_PER_COMBO
 #define PERMISSIVE_HOLD
 #define TAPPING_FORCE_HOLD
 #define TAPPING_TERM 200

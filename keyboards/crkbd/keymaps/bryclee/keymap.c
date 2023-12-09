@@ -105,7 +105,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
       _______, KC_EXLM,   KC_AT, KC_HASH,  KC_DLR, KC_PERC,                      KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, _______,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      _______, KC_GRV, KC_EQL, KC_LBRC, KC_RBRC, KC_BSLS,                      _______,  OS_SHFT, OS_ALT, OS_GUI, OS_CTRL,  XXXXXXX,
+      _______, KC_GRV, KC_EQL, KC_LBRC, KC_RBRC, KC_BSLS,                      XXXXXXX,  OS_SHFT, OS_ALT, OS_GUI, OS_CTRL,  KC_DQUO,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       _______, KC_TILD, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE,                      KC_UNDS, KC_MINS, KC_LT, KC_GT, KC_QUES, _______,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
@@ -153,41 +153,49 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 // clang-format on
 
-enum combos { CB_MINS, CB_UNDS, CB_DQUO, CB_ENT, CB_BSPC, CB_TAB, CB_ESC, CB_AREP, COMBO_LENGTH };
+enum combos {
+    CB_MINS,
+    CB_UNDS,
+    CB_ENT,
+    /* CB_BSPC, CB_TAB, CB_ESC, */
+    CB_AREP,
+    COMBO_LENGTH
+};
 uint16_t COMBO_LEN = COMBO_LENGTH;
 
 const uint16_t PROGMEM mins_combo[] = {KC_O, KC_P, COMBO_END};
 const uint16_t PROGMEM unds_combo[] = {KC_L, KC_P, COMBO_END};
-const uint16_t PROGMEM dquo_combo[] = {KC_P, KC_QUOT, COMBO_END};
-const uint16_t PROGMEM ent_combo[]  = {KC_SCLN, KC_QUOT, COMBO_END};
-const uint16_t PROGMEM bspc_combo[] = {KC_I, KC_O, COMBO_END};
-const uint16_t PROGMEM esc_combo[]  = {KC_Q, KC_W, COMBO_END};
-const uint16_t PROGMEM tab_combo[]  = {KC_W, KC_E, COMBO_END};
+const uint16_t PROGMEM ent_combo[]  = {KC_H, KC_J, COMBO_END};
+/* const uint16_t PROGMEM bspc_combo[] = {KC_I, KC_O, COMBO_END}; */
+/* const uint16_t PROGMEM esc_combo[]  = {KC_Q, KC_W, COMBO_END}; */
+/* const uint16_t PROGMEM tab_combo[]  = {KC_W, KC_E, COMBO_END}; */
 const uint16_t PROGMEM arep_combo[] = {QK_REP, KC_Z, COMBO_END};
 
 combo_t key_combos[] = {
-    [CB_MINS] = COMBO(mins_combo, KC_MINS), [CB_UNDS] = COMBO(unds_combo, KC_UNDS),
-    [CB_DQUO] = COMBO(dquo_combo, KC_DQUO), [CB_ENT] = COMBO(ent_combo, KC_ENT),
-    [CB_BSPC] = COMBO(bspc_combo, KC_BSPC), [CB_TAB] = COMBO(tab_combo, KC_TAB),
-    [CB_ESC] = COMBO(esc_combo, KC_ESC),    [CB_AREP] = COMBO(arep_combo, QK_AREP),
+    [CB_MINS] = COMBO(mins_combo, KC_MINS),
+    [CB_UNDS] = COMBO(unds_combo, KC_UNDS),
+    [CB_ENT]  = COMBO(ent_combo, KC_ENT),
+    /* [CB_BSPC] = COMBO(bspc_combo, KC_BSPC), [CB_TAB] = COMBO(tab_combo, KC_TAB), */
+    /* [CB_ESC] = COMBO(esc_combo, KC_ESC), */
+    [CB_AREP] = COMBO(arep_combo, QK_AREP),
 };
 
-uint16_t get_combo_term(uint16_t index, combo_t *combo) {
-    switch (index) {
-        case CB_ENT:
-            return 35;
-        case CB_UNDS:
-        case CB_DQUO:
-            return 25;
-            /* case CB_TAB: */
-            /* case CB_ESC: */
-            /*     return 30; */
-            /* case CB_MINS: */
-            /* case CB_BSPC: */
-            /*     return 20; */
-    }
-    return COMBO_TERM;
-}
+// uint16_t get_combo_term(uint16_t index, combo_t *combo) {
+//     switch (index) {
+//         case CB_ENT:
+//             return 35;
+//         case CB_UNDS:
+//         case CB_DQUO:
+//             return 35;
+//             /* case CB_TAB: */
+//             /* case CB_ESC: */
+//             /*     return 30; */
+//             /* case CB_MINS: */
+//             /* case CB_BSPC: */
+//             /*     return 20; */
+//     }
+//     return COMBO_TERM;
+// }
 
 #ifdef RGBLIGHT_LAYERS
 #    define _GREEN 95, 150, 255
@@ -542,6 +550,12 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 
     state = update_tri_layer_state(state, NAV, SYMBOL, MOUSE);
     state = update_tri_layer_state(state, GAME, NAV, GAME_NAV);
+
+    if (get_highest_layer(state) > QWERTY) {
+        combo_disable();
+    } else {
+        combo_enable();
+    }
 
     return state;
 }
