@@ -165,7 +165,7 @@ uint16_t COMBO_LEN = COMBO_LENGTH;
 
 const uint16_t PROGMEM mins_combo[] = {KC_O, KC_P, COMBO_END};
 const uint16_t PROGMEM unds_combo[] = {KC_L, KC_P, COMBO_END};
-const uint16_t PROGMEM ent_combo[]  = {KC_H, KC_J, COMBO_END};
+const uint16_t PROGMEM ent_combo[]  = {KC_SCLN, KC_QUOT, COMBO_END};
 /* const uint16_t PROGMEM bspc_combo[] = {KC_I, KC_O, COMBO_END}; */
 /* const uint16_t PROGMEM esc_combo[]  = {KC_Q, KC_W, COMBO_END}; */
 /* const uint16_t PROGMEM tab_combo[]  = {KC_W, KC_E, COMBO_END}; */
@@ -201,9 +201,9 @@ combo_t key_combos[] = {
 #    define _GREEN 95, 150, 255
 #    define _GOLD 36, 150, 255
 #    define _CORAL 11, 176, 255
-const rgblight_segment_t PROGMEM rgb_numpad_layer[] =
-    RGBLIGHT_LAYER_SEGMENTS({10, 4, HSV_CYAN}, {15, 6, HSV_CYAN}, {21, 1, 170, 220, 255}, {26, 1, 10, 255, 255},
-                            {33, 8, HSV_BLACK}, {41, 1, HSV_CYAN}, {42, 12, HSV_BLACK});
+const rgblight_segment_t PROGMEM rgb_numpad_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    {6, 4, HSV_BLACK}, {10, 4, HSV_GREEN}, {15, 6, HSV_GREEN}, {21, 1, 170, 220, 255}, {22, 4, HSV_BLACK},
+    {26, 1, 10, 255, 255}, {33, 8, HSV_BLACK}, {41, 1, HSV_CYAN}, {42, 12, HSV_BLACK});
 const rgblight_segment_t PROGMEM rgb_nav_layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {9, 2, _GOLD}, {17, 2, _GOLD}, {23, 1, _GOLD}, {36, 2, _GOLD}, {44, 2, _GOLD}, {50, 1, _GOLD}, {13, 1, _GOLD},
     {35, 1, HSV_YELLOW}, {38, 1, HSV_YELLOW}, {43, 1, HSV_YELLOW}, {46, 1, HSV_YELLOW});
