@@ -23,19 +23,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "features/oneshot.h"
 #include "features/swapper.h"
 
-#define LT_SPC LT(NAV, KC_SPC)
-#define LT_TAB LT(NAV, KC_TAB)
-
-// Bottom mods
-#define BRM_Z KC_Z
-#define BRM_X KC_X
-#define BRM_C KC_C
-#define BRM_V KC_V
-#define BRM_M KC_M
-#define BRM_COMM KC_COMM
-#define BRM_DOT KC_DOT
-#define BRM_SLSH KC_SLSH
-
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -251,8 +238,6 @@ bool is_oneshot_cancel_key(uint16_t keycode) {
     switch (keycode) {
         case MO(SYMBOL):
         case MO(NAV):
-        case LT_TAB:
-        case LT_SPC:
             return true;
         default:
             return false;
@@ -268,8 +253,6 @@ bool is_oneshot_ignored_key(uint16_t keycode) {
         case OS_GUI:
         case MO(SYMBOL):
         case MO(NAV):
-        case LT_TAB:
-        case LT_SPC:
             return true;
         default:
             return false;
