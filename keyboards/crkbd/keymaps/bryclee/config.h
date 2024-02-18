@@ -96,11 +96,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTICROSS
 #endif
 
-// #define DYNAMIC_KEYMAP_LAYER_COUNT 8 // only needed for Via
+#define DYNAMIC_KEYMAP_LAYER_COUNT 9 // only needed for Via
 
 #define DOUBLE_TAP_SHIFT_TURNS_ON_CAPS_WORD
 
-#define COMBO_ONLY_FROM_LAYER 1
+#define COMBO_ONLY_FROM_LAYER 0
 #define COMBO_TERM 30
 // #define COMBO_TERM_PER_COMBO
 #define PERMISSIVE_HOLD
