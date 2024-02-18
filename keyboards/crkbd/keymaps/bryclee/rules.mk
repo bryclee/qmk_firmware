@@ -1,10 +1,10 @@
 MOUSEKEY_ENABLE		= yes	# Mouse keys
 RGBLIGHT_ENABLE		= yes	# Enable WS2812 RGB underlight.
 RGB_MATRIX_ENABLE	= no
-VIA_ENABLE			= no		Enable VIA
+VIA_ENABLE			= no	# Enable VIA
 OLED_ENABLE			= no
 LTO_ENABLE			= yes	# Link Time Optimization
 CAPS_WORD_ENABLE	= yes
 COMBO_ENABLE		= yes
 REPEAT_KEY_ENABLE	= yes
-SRC += features/swapper.c features/layer_lock.c features/oneshot.c rgb.c
+SRC += features/swapper.c features/layer_lock.c features/oneshot.c
