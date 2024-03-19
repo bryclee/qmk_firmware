@@ -19,7 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include QMK_KEYBOARD_H
 
 #include "keycodes.h"
-
 #include "features/layer_lock.h"
 #include "features/oneshot.h"
 #include "features/swapper.h"
@@ -31,11 +30,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
        LT(ADJUST,KC_TAB),    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                         KC_Y,    KC_U,    KC_I,    KC_O,   KC_P,  KC_BSPC,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      LT(NAV,KC_ESC),    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                         KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN, KC_QUOT,
+      MT(MOD_LCTL,KC_ESC),    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                         KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN, KC_QUOT,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       QK_REP,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,  KC_ENT,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          DF(QWERTY), MO(NUM),  KC_SPC,     KC_LSFT, MO(SYMBOL), TG(NUMPAD)
+                                          DF(QWERTY), MO(NAV),  KC_SPC,     KC_LSFT, MO(SYMBOL), TG(NUMPAD)
                                       //`--------------------------'  `--------------------------'
   ),
 
@@ -43,24 +42,49 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
        LT(ADJUST,KC_TAB),   KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,                         KC_J,    KC_L,    KC_U,    KC_Y,   KC_SCLN,  KC_BSPC,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      LT(NAV,KC_ESC), KC_A, KC_R, KC_S, KC_T,    KC_D,                         KC_H, KC_N, KC_E, KC_I, KC_O, KC_QUOT,
+      MT(MOD_LCTL,KC_ESC), KC_A, KC_R, KC_S, KC_T,    KC_D,                         KC_H, KC_N, KC_E, KC_I, KC_O, KC_QUOT,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       QK_REP,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_K,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,  KC_ENT,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          DF(QWERTY), MO(NUM),  KC_SPC,     KC_LSFT, MO(SYMBOL), TG(NUMPAD)
+                                          DF(QWERTY), MO(NAV),  KC_SPC,     KC_LSFT, MO(SYMBOL), TG(NUMPAD)
                                       //`--------------------------'  `--------------------------'
+  ),
+
+  [GAME] = LAYOUT_split_3x6_3(
+  //,-----------------------------------------------------.                    ,-----------------------------------------------------.
+      KC_TAB,  _______,    _______,    _______,    _______,    _______,                         _______,    _______,    _______,    _______,   _______,  _______,
+  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+      KC_LCTL, _______,    _______,    _______,    _______,    _______,                         _______,    _______,    _______,    _______, _______, _______,
+  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+      KC_LSFT, _______,    _______,    _______,    _______,    _______,                         _______,    _______, _______,  _______, _______,  _______,
+  //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
+                                          KC_LALT, MO(NAV),  _______,     _______, _______, MO(ADJUST)
+                                      //`--------------------------'  `--------------------------'
+
   ),
 
   [NAV] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
       /* KC_TAB,   KC_ESC,  KC_TAB,  QK_REP, QK_AREP, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_BSPC, _______, */
-      _______, SW_WIN, SW_SWIN, SW_SCTAB, SW_CTAB, _______,                    KC_MS_LEFT, KC_MS_DOWN, KC_MS_UP, KC_MS_RIGHT, _______, _______,
+      _______,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                         KC_6,    KC_7,    KC_8,    KC_9,    KC_0, _______,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      _______, OS_CTRL, OS_GUI, OS_ALT, OS_SHFT, KC_TAB,                      KC_LEFT, KC_DOWN,   KC_UP, KC_RIGHT, KC_BSPC, KC_ENT,
+      KC_ESC, OS_CTRL, OS_GUI, OS_ALT, OS_SHFT, KC_TAB,                      KC_LEFT, KC_DOWN,   KC_UP, KC_RIGHT, KC_BSPC, KC_ENT,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LSFT, _______, _______, _______, _______, QK_AREP,                      KC_HOME, KC_PGDN, KC_PGUP, KC_END, KC_DEL, KC_INS,
+      KC_LSFT, SW_WIN, SW_SWIN, SW_SCTAB, SW_CTAB, QK_AREP,                      KC_HOME, KC_PGDN, KC_PGUP, KC_END, KC_DEL, _______,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          _______, _______,  _______,     KC_MS_BTN1, KC_MS_BTN2, LLOCK
+                                          _______, _______,  _______,     _______, _______, LLOCK
+                                      //`--------------------------'  `--------------------------'
+  ),
+
+  [GAME_NAV] = LAYOUT_split_3x6_3(
+  //,-----------------------------------------------------.                    ,-----------------------------------------------------.
+      _______, _______, _______, _______,    _______,    _______,                         _______,    _______,    _______,    _______,   _______,  _______,
+  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+      _______, KC_LEFT, KC_DOWN,   KC_UP,KC_RIGHT, _______,                          _______,    _______,    _______,    _______, _______, _______,
+  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+      _______, KC_F1, KC_F2, KC_F3,    KC_F4,    KC_F5,                         _______,    _______, _______,  _______, _______,  _______,
+  //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
+                                          KC_LALT, _______,  _______,     _______, _______, MO(ADJUST)
                                       //`--------------------------'  `--------------------------'
   ),
 
@@ -76,14 +100,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                       //`--------------------------'  `--------------------------'
   ),
 
-  [NUM] = LAYOUT_split_3x6_3(
+  [MOUSE] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-      /* XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                 KC_MS_WH_LEFT, KC_MS_WH_DOWN, KC_MS_WH_UP, KC_MS_WH_RIGHT, XXXXXXX, XXXXXXX, */
-      _______,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                    KC_6,    KC_7,    KC_8,    KC_9,    KC_0, _______,
+      /* XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      KC_MS_WH_LEFT, KC_MS_WH_DOWN, KC_MS_WH_UP, KC_MS_WH_RIGHT, XXXXXXX, XXXXXXX, */
+      _______,    KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,                         KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10, _______,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      XXXXXXX, OS_CTRL, OS_GUI, OS_ALT, OS_SHFT, KC_F11,                       KC_F12, OS_SHFT, OS_ALT, OS_GUI, OS_CTRL, XXXXXXX,
+      XXXXXXX, OS_CTRL, OS_GUI, OS_ALT, OS_SHFT, XXXXXXX,                      KC_MS_LEFT, KC_MS_DOWN, KC_MS_UP, KC_MS_RIGHT, KC_F11, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      XXXXXXX, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5,                              KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, XXXXXXX,
+      XXXXXXX, XXXXXXX, XXXXXXX, KC_MS_BTN2, KC_MS_BTN1, XXXXXXX,                      KC_MS_WH_LEFT, KC_MS_WH_DOWN, KC_MS_WH_UP, KC_MS_WH_RIGHT, KC_F12, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           XXXXXXX, _______,  _______,     XXXXXXX, _______, XXXXXXX
                                       //`--------------------------'  `--------------------------'
@@ -92,7 +116,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [ADJUST] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-      _______, KC_MPRV, KC_MPLY, KC_MUTE, KC_MNXT, QK_BOOTLOADER,                XXXXXXX, KC_F9, KC_F10, KC_F11, KC_F12, XXXXXXX,
+      _______, KC_MPRV, KC_MPLY, KC_MUTE, KC_MNXT, QK_BOOTLOADER,                XXXXXXX, KC_F9, KC_F10, KC_F11, KC_F12, TG(GAME),
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_CAPS, RGB_HUI, RGB_SAI, KC_BRIU, KC_VOLU, KC_CAPS,                      DF(COLEMAK), KC_F5, KC_F6, KC_F7, KC_F8, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
@@ -501,10 +525,14 @@ void keyboard_post_init_user(void) {
 layer_state_t layer_state_set_user(layer_state_t state) {
 #ifdef RGBLIGHT_LAYERS
     rgblight_set_layer_state(L_NUMPAD, layer_state_cmp(state, NUMPAD));
-    rgblight_set_layer_state(L_NAV, layer_state_cmp(state, NUM));
+    rgblight_set_layer_state(L_NAV, layer_state_cmp(state, NAV));
     rgblight_set_layer_state(L_SYM, layer_state_cmp(state, SYMBOL));
     rgblight_set_layer_state(L_ADJUST, layer_state_cmp(state, ADJUST));
+    rgblight_set_layer_state(L_GAME, layer_state_cmp(state, GAME));
 #endif
+
+    state = update_tri_layer_state(state, NAV, SYMBOL, MOUSE);
+    state = update_tri_layer_state(state, GAME, NAV, GAME_NAV);
 
     if (get_highest_layer(state) > QWERTY) {
         combo_disable();
