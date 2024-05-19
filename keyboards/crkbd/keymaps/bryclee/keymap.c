@@ -46,7 +46,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       QK_REP,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_K,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,  KC_ENT,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          DF(QWERTY), MO(NAV),  KC_SPC,     KC_LSFT, MO(SYMBOL), TG(NUMPAD)
+                                          TG(QWERTY), MO(NAV),  KC_SPC,     KC_LSFT, MO(SYMBOL), TG(NUMPAD)
                                       //`--------------------------'  `--------------------------'
   ),
 
@@ -57,9 +57,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_ESC, OS_CTRL, OS_GUI, OS_ALT, OS_SHFT, KC_TAB,                      KC_LEFT, KC_DOWN,   KC_UP, KC_RIGHT, KC_BSPC, KC_ENT,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LSFT, QK_AREP, XXXXXXX, SW_SCTAB, SW_CTAB, XXXXXXX,                      KC_HOME, KC_PGDN, KC_PGUP, KC_END, KC_DEL, KC_INS,
+      KC_LSFT, SW_SWIN, XXXXXXX, SW_SCTAB, SW_CTAB, QK_AREP,                      KC_HOME, KC_PGDN, KC_PGUP, KC_END, KC_DEL, KC_INS,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          _______, _______,  _______,     SW_SWIN, _______, LLOCK
+                                          _______, _______,  _______,     _______, _______, LLOCK
                                       //`--------------------------'  `--------------------------'
   ),
 
@@ -175,7 +175,7 @@ const rgblight_segment_t PROGMEM rgb_sym_layer[] =
 const rgblight_segment_t PROGMEM rgb_adjust_layer[] =
     RGBLIGHT_LAYER_SEGMENTS({10, 3, _GREEN}, {17, 2, _GREEN}, {23, 1, _GREEN}, {34, 3, _GREEN});
 const rgblight_segment_t PROGMEM rgb_game_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {6, 1, HSV_RED}, {13, 2, HSV_RED}, {24, 3, HSV_RED}, {33, 1, HSV_RED}, {40, 2, HSV_RED}, {51, 3, HSV_RED});
+    {14, 1, HSV_GREEN});
 const rgblight_segment_t PROGMEM rgb_caps_word[] = RGBLIGHT_LAYER_SEGMENTS({0, 54, HSV_RED});
 const rgblight_segment_t PROGMEM rgb_osm_ctl[]   = RGBLIGHT_LAYER_SEGMENTS({22, 1, HSV_WHITE}, {49, 1, HSV_WHITE});
 const rgblight_segment_t PROGMEM rgb_osm_gui[]   = RGBLIGHT_LAYER_SEGMENTS({19, 1, HSV_WHITE}, {46, 1, HSV_WHITE});
@@ -503,6 +503,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     rgblight_set_layer_state(L_NAV, layer_state_cmp(state, NAV));
     rgblight_set_layer_state(L_SYM, layer_state_cmp(state, SYMBOL));
     rgblight_set_layer_state(L_ADJUST, layer_state_cmp(state, ADJUST));
+    rgblight_set_layer_state(L_GAME, layer_state_cmp(state, QWERTY));
 #endif
 
     state = update_tri_layer_state(state, NAV, SYMBOL, MOUSE);
