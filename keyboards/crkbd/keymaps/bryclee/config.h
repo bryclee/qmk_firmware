@@ -99,11 +99,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define DYNAMIC_KEYMAP_LAYER_COUNT 8 // only needed for Via
 
 #define DOUBLE_TAP_SHIFT_TURNS_ON_CAPS_WORD
+#define BOTH_SHIFTS_TURNS_ON_CAPS_WORD
 
 #define COMBO_ONLY_FROM_LAYER 1
 #define COMBO_TERM 30
 // #define COMBO_TERM_PER_COMBO
-#define PERMISSIVE_HOLD
-#define TAPPING_FORCE_HOLD
-#define TAPPING_TERM 200
+/* #define PERMISSIVE_HOLD */
+#define HOLD_ON_OTHER_KEY_PRESS
+/* #define TAPPING_FORCE_HOLD */
+/* #define TAPPING_TERM 200 */
 #define QUICK_TAP_TERM 0
