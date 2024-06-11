@@ -7,4 +7,5 @@ LTO_ENABLE			= yes	# Link Time Optimization
 CAPS_WORD_ENABLE	= yes
 COMBO_ENABLE		= yes
 REPEAT_KEY_ENABLE	= yes
-SRC += features/swapper.c features/layer_lock.c features/oneshot.c rgb.c
+DYNAMIC_TAPPING_TERM_ENABLE = yes
+SRC += features/swapper.c features/layer_lock.c features/oneshot.c rgb.c features/achordion.c
