@@ -1,6 +1,6 @@
 #pragma once
 
-enum crkbd_layers { QWERTY = 0, COLEMAK, HMR_QWERTY, HMR_COLEMAK, NAV, SYMBOL, MOUSE, ADJUST, NUMPAD };
+enum crkbd_layers { QWERTY = 0, HMR_QWERTY, ALT_LAYOUT, COLEMAK, NAV, SYMBOL, MOUSE, ADJUST, NUMPAD };
 enum custom_keycodes {
     SW_WIN = QK_USER,
     SW_SWIN,
