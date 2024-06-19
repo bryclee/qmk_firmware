@@ -52,13 +52,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [ALT_LAYOUT] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-       LT(ADJUST,KC_GRAVE),   KC_COMMA,    KC_U,    KC_O,    KC_Y,    KC_J,                         KC_V,    KC_C,    KC_D,    KC_L,   KC_B,  KC_MINS,
+       LT(ADJUST,KC_GRAVE),   KC_COMMA,    KC_U,    KC_O,    KC_QUOTE,    KC_J,                         KC_Q,    KC_P,    KC_D,    KC_F,   KC_B,  KC_MINS,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      MT(MOD_LCTL,KC_ESC), LCTL_T(KC_I), LGUI_T(KC_E), LALT_T(KC_A), LSFT_T(KC_H),    KC_P,                         KC_G, RSFT_T(KC_S), RALT_T(KC_T), RGUI_T(KC_R), RCTL_T(KC_N), KC_SLSH,
+      MT(MOD_LCTL,KC_ESC), LCTL_T(KC_I), LGUI_T(KC_E), LALT_T(KC_A), LSFT_T(KC_H),    KC_M,                         KC_Y, RSFT_T(KC_C), RALT_T(KC_T), RGUI_T(KC_S), RCTL_T(KC_N), KC_ENT,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      QK_REP,    KC_DOT,    KC_SEMICOLON,    KC_QUOTE,    KC_F,    KC_K,                         KC_Z,    KC_W, KC_M,  KC_X, KC_Q,  CW_TOGG,
+      QK_REP,    KC_DOT,    KC_SLSH,    KC_SEMICOLON,    KC_L,    KC_Z,                         KC_W,    KC_G, KC_K,  KC_V, KC_X,  CW_TOGG,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          DF(QWERTY), LT(NAV, KC_TAB),  KC_SPC,     KC_ENT, LT(SYMBOL, KC_BSPC), TG(NUMPAD)
+                                          DF(QWERTY), LT(NAV, KC_TAB),  KC_SPC,     KC_R, LT(SYMBOL, KC_BSPC), TG(NUMPAD)
                                       //`-----------MOMO---------------'  `--------------------------'
   ),
 
