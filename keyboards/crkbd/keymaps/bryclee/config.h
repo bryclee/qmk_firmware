@@ -105,7 +105,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define COMBO_TERM 30
 // #define COMBO_TERM_PER_COMBO
 /* #define PERMISSIVE_HOLD */
-/* #define HOLD_ON_OTHER_KEY_PRESS */
+#define HOLD_ON_OTHER_KEY_PRESS_PER_KEY
 /* #define TAPPING_FORCE_HOLD */
 #define TAPPING_TERM 165
 #define TAPPING_TERM_PER_KEY
