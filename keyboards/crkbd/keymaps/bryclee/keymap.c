@@ -24,6 +24,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "features/swapper.h"
 #include "features/achordion.h"
 
+#define QUICK_TAP_HOLDS        \
+    case LT(ADJUST, KC_TAB):   \
+    case LT(ADJUST, KC_GRAVE): \
+    case LT(NAV, KC_TAB):      \
+    case LT(SYMBOL, KC_BSPC):  \
+    case LT(SYMBOL, KC_MINS):
+// case LT(SYMBOL, KC_R):
+
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -52,25 +60,25 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [ALT_LAYOUT] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-       LT(ADJUST,KC_GRAVE),   KC_COMMA,    KC_U,    KC_O,    KC_QUOTE,    KC_J,                         KC_Q,    KC_P,    KC_D,    KC_F,   KC_B,  KC_MINS,
+       LT(ADJUST,KC_TAB),   KC_DOT,    KC_U,    KC_O,    KC_G,    KC_P,                         KC_Q,    KC_K,    KC_L,    KC_F,   KC_B,  KC_BSPC,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      MT(MOD_LCTL,KC_ESC), LCTL_T(KC_I), LGUI_T(KC_E), LALT_T(KC_A), LSFT_T(KC_H),    KC_M,                         KC_Y, RSFT_T(KC_C), RALT_T(KC_T), RGUI_T(KC_S), RCTL_T(KC_N), KC_ENT,
+      MT(MOD_LCTL,KC_ESC), LCTL_T(KC_I), LGUI_T(KC_E), LALT_T(KC_A), LSFT_T(KC_C),    KC_Y,                         KC_M, RSFT_T(KC_T), RALT_T(KC_H), RGUI_T(KC_S), RCTL_T(KC_N), KC_MINS,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      QK_REP,    KC_DOT,    KC_SLSH,    KC_SEMICOLON,    KC_L,    KC_Z,                         KC_W,    KC_G, KC_K,  KC_V, KC_X,  CW_TOGG,
+      QK_REP,    KC_COMMA,    KC_SLSH,    KC_QUOTE,    KC_W,    KC_SEMICOLON,                         KC_Z,    KC_D, KC_J,  KC_V, KC_X,  CW_TOGG,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          DF(QWERTY), LT(NAV, KC_TAB),  KC_SPC,     KC_R, LT(SYMBOL, KC_BSPC), TG(NUMPAD)
+                                          DF(QWERTY), MO(NAV),  KC_SPC,     KC_ENT, LT(SYMBOL, KC_R), TG(NUMPAD)
                                       //`-----------MOMO---------------'  `--------------------------'
   ),
 
   [COLEMAK] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-       LT(ADJUST,KC_GRAVE),   KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,                         KC_J,    KC_L,    KC_U,    KC_Y,   KC_SCLN,  KC_MINS,
+       LT(ADJUST,KC_TAB),   KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,                         KC_J,    KC_L,    KC_U,    KC_Y,   KC_SCLN,  KC_BSPC,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       MT(MOD_LCTL,KC_ESC), LCTL_T(KC_A), LGUI_T(KC_R), LALT_T(KC_S), LSFT_T(KC_T),    KC_D,                         KC_H, RSFT_T(KC_N), RALT_T(KC_E), RGUI_T(KC_I), RCTL_T(KC_O), KC_QUOTE,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       QK_REP,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_K,    KC_M, KC_COMMA,  KC_DOT, KC_SLASH,  CW_TOGG,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          DF(QWERTY), LT(NAV, KC_TAB),  KC_SPC,     KC_ENT, LT(SYMBOL, KC_BSPC), TG(NUMPAD)
+                                          DF(QWERTY), MO(NAV),  KC_SPC,     KC_ENT, LT(SYMBOL, KC_MINS), TG(NUMPAD)
                                       //`--------------------------'  `--------------------------'
           ),
 
@@ -195,11 +203,8 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
 
 bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case LT(SYMBOL, KC_BSPC):
-        case LT(NAV, KC_TAB):
-        case LT(ADJUST, KC_GRAVE):
-        case LT(ADJUST, KC_TAB):
-            return true;
+        QUICK_TAP_HOLDS
+        return true;
         default:
             return false;
     }
@@ -577,10 +582,8 @@ void caps_word_set_user(bool active) {
 bool achordion_chord(uint16_t tap_hold_keycode, keyrecord_t *tap_hold_record, uint16_t other_keycode,
                      keyrecord_t *other_record) {
     switch (tap_hold_keycode) {
-        case LT(ADJUST, KC_TAB):
-        case LT(ADJUST, KC_GRAVE):
-        case LT(NAV, KC_TAB):
-        case LT(SYMBOL, KC_BSPC):
+        QUICK_TAP_HOLDS
+        case LT(SYMBOL, KC_R):
             return true;
     }
     return achordion_opposite_hands(tap_hold_record, other_record);
@@ -592,11 +595,8 @@ uint16_t achordion_timeout(uint16_t tap_hold_keycode) {
 
 uint16_t achordion_streak_chord_timeout(uint16_t tap_hold_keycode, uint16_t next_keycode) {
     switch (tap_hold_keycode) {
-        case LT(ADJUST, KC_TAB):
-        case LT(ADJUST, KC_GRAVE):
-        case LT(NAV, KC_TAB):
-        case LT(SYMBOL, KC_BSPC):
-            return 0;
+        QUICK_TAP_HOLDS
+        return 0;
     }
     return 80;
 }

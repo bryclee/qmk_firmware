@@ -46,7 +46,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define SPLIT_TRANSACTION_IDS_USER USER_SYNC_ANIM
 #    define RGBLIGHT_DEFAULT_SAT 191
 #    define RGBLIGHT_DEFAULT_HUE 80
-#    define RGBLIGHT_DEFAULT_VAL 86
+// #    define RGBLIGHT_DEFAULT_VAL 86
 
 #    define RGBLIGHT_LAYERS_RETAIN_VAL
 #endif
@@ -107,7 +107,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* #define PERMISSIVE_HOLD */
 #define HOLD_ON_OTHER_KEY_PRESS_PER_KEY
 /* #define TAPPING_FORCE_HOLD */
-#define TAPPING_TERM 165
+#define TAPPING_TERM 155
 #define TAPPING_TERM_PER_KEY
-#define QUICK_TAP_TERM 100
+#define QUICK_TAP_TERM 70
 // #define ACHORDION_STREAK
