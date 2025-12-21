@@ -62,13 +62,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [ALT_LAYOUT] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-       LT(ADJUST,KC_TAB),   KC_B,    KC_L,    KC_D,    KC_W,    KC_Z,                         KC_QUOTE,    KC_F,    KC_O,    KC_U,   KC_J,  KC_SEMICOLON,
+       LT(ADJUST,KC_GRAVE),   KC_SEMICOLON,    KC_U,    KC_O,    KC_F,    KC_J,                         KC_Q,    KC_K,    KC_L,    KC_R,   KC_V,  KC_SLASH,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      MT(MOD_LCTL,KC_ESC), LCTL_T(KC_N), LGUI_T(KC_R), LALT_T(KC_T), LSFT_T(KC_S),    KC_G,                         KC_Y, RSFT_T(KC_H), RALT_T(KC_A), RGUI_T(KC_E), RCTL_T(KC_I), KC_COMMA,
+      MT(MOD_LCTL,KC_ESC), LCTL_T(KC_E), LGUI_T(KC_I), LALT_T(KC_A), LSFT_T(KC_C),    KC_Y,                         KC_D, RSFT_T(KC_H), RALT_T(KC_T), RGUI_T(KC_N), RCTL_T(KC_S), KC_MINS,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      QK_REP,    KC_Q,    KC_X,    KC_M,    KC_C,    KC_V,                         KC_K,    KC_P, KC_DOT,  KC_MINS, KC_SLASH,  CW_TOGG,
+      QK_REP,    KC_COMM,    KC_DOT,    KC_P,    KC_G,    KC_QUOT,                         KC_B,    KC_M, KC_W,  KC_X, KC_Z,  CW_TOGG,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          DF(QWERTY), LT(NAV, KC_GRAVE),  KC_SPC,     LT(NUMPAD, KC_ENT), LT(SYMBOL, KC_BSPC), KC_DELETE
+                                          DF(QWERTY), LT(NAV, KC_TAB),  KC_SPC,     LT(NUMPAD, KC_ENT), LT(SYMBOL, KC_BSPC), KC_DELETE
                                       //`-----------MOMO---------------'  `--------------------------'
   ),
 
@@ -313,9 +313,9 @@ oneshot_state os_alt_state   = os_up_unqueued;
 oneshot_state os_gui_state   = os_up_unqueued;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    if (!process_achordion(keycode, record)) {
-        return false;
-    }
+    /* if (!process_achordion(keycode, record)) { */
+    /*     return false; */
+    /* } */
     if (!process_layer_lock(keycode, record, LLOCK)) {
         return false;
     }
@@ -471,7 +471,7 @@ void matrix_scan_user(void) {
         rgblight_wakeup_animation();
     }
 #endif
-    achordion_task();
+    /* achordion_task(); */
 }
 
 void housekeeping_task_user(void) {
