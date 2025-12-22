@@ -8,4 +8,4 @@ CAPS_WORD_ENABLE	= yes
 COMBO_ENABLE		= yes
 REPEAT_KEY_ENABLE	= yes
 DYNAMIC_TAPPING_TERM_ENABLE = yes
-SRC += features/swapper.c features/layer_lock.c features/oneshot.c rgb.c features/achordion.c
+SRC += features/swapper.c features/layer_lock.c features/oneshot.c rgb.c

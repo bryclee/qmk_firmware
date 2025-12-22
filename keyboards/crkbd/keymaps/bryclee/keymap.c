@@ -22,7 +22,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "features/layer_lock.h"
 #include "features/oneshot.h"
 #include "features/swapper.h"
-#include "features/achordion.h"
 
 #define QUICK_TAP_HOLDS        \
     case LT(ADJUST, KC_TAB):   \
@@ -66,9 +65,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       MT(MOD_LCTL,KC_ESC), LCTL_T(KC_E), LGUI_T(KC_I), LALT_T(KC_A), LSFT_T(KC_C),    KC_Y,                         KC_D, RSFT_T(KC_H), RALT_T(KC_T), RGUI_T(KC_N), RCTL_T(KC_S), KC_MINS,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      QK_REP,    KC_COMM,    KC_DOT,    KC_P,    KC_G,    KC_QUOT,                         KC_B,    KC_M, KC_W,  KC_X, KC_Z,  CW_TOGG,
+      /* QK_REP,    KC_QUOT, KC_COMM,    KC_DOT,    KKC_QUOT,    C_P,    KC_G,                         KC_B,    KC_M, KC_W,  KC_X, KC_Z,  CW_TOGG, */
+      // original gust below, attempting to mod for col stag keyboard
+      DF(QWERTY),    KC_COMM,    KC_DOT,    KC_P,    KC_G,    KC_QUOT,                         KC_B,    KC_M, KC_W,  KC_X, KC_Z,  CW_TOGG,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          DF(QWERTY), LT(NAV, KC_TAB),  KC_SPC,     LT(NUMPAD, KC_ENT), LT(SYMBOL, KC_BSPC), KC_DELETE
+                                          QK_REP, LT(NAV, KC_TAB),  KC_SPC,     LT(NUMPAD, KC_ENT), LT(SYMBOL, KC_BSPC), KC_DELETE
                                       //`-----------MOMO---------------'  `--------------------------'
   ),
 
@@ -102,9 +103,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       /* XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      KC_MS_WH_LEFT, KC_MS_WH_DOWN, KC_MS_WH_UP, KC_MS_WH_RIGHT, XXXXXXX, XXXXXXX, */
       _______,    KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,                         KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10, _______,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      XXXXXXX, OS_CTRL, OS_GUI, OS_ALT, OS_SHFT, XXXXXXX,                      KC_MS_LEFT, KC_MS_DOWN, KC_MS_UP, KC_MS_RIGHT, KC_F11, XXXXXXX,
+      XXXXXXX, OS_CTRL, OS_GUI, OS_ALT, OS_SHFT, XXXXXXX,                      MS_LEFT, MS_DOWN, MS_UP, MS_RGHT, KC_F11, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      XXXXXXX, XXXXXXX, XXXXXXX, KC_MS_BTN2, KC_MS_BTN1, XXXXXXX,                      KC_MS_WH_LEFT, KC_MS_WH_DOWN, KC_MS_WH_UP, KC_MS_WH_RIGHT, KC_F12, XXXXXXX,
+      XXXXXXX, XXXXXXX, XXXXXXX, MS_BTN2, MS_BTN1, XXXXXXX,                      MS_WHLL, MS_WHLD, MS_WHLU, MS_WHLR, KC_F12, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           XXXXXXX, _______,  _______,     XXXXXXX, _______, XXXXXXX
                                       //`--------------------------'  `--------------------------'
@@ -115,9 +116,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
       _______, KC_MPRV, KC_MPLY, KC_MUTE, KC_MNXT, QK_BOOTLOADER,                XXXXXXX, KC_F9, KC_F10, KC_F11, KC_F12, DT_UP,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_CAPS, RGB_HUI, RGB_SAI, KC_BRIU, KC_VOLU, KC_CAPS,                      DF(ALT_LAYOUT), KC_F5, KC_F6, KC_F7, KC_F8, DT_DOWN,
+      KC_CAPS, UG_HUEU, UG_SATU, KC_BRIU, KC_VOLU, KC_CAPS,                      DF(ALT_LAYOUT), KC_F5, KC_F6, KC_F7, KC_F8, DT_DOWN,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      RGB_TOG, RGB_MOD, RGB_VAI, KC_BRID, KC_VOLD, EE_CLR,                      DF(QWERTY), KC_F1, KC_F2, KC_F3, KC_F4, KC_RSFT,
+      UG_TOGG, UG_NEXT, UG_VALU, KC_BRID, KC_VOLD, EE_CLR,                      DF(QWERTY), KC_F1, KC_F2, KC_F3, KC_F4, KC_RSFT,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           _______, _______,  DT_PRNT,     KC_RALT, KC_RGUI, KC_RCTL
                                       //`--------------------------'  `--------------------------'
@@ -313,9 +314,6 @@ oneshot_state os_alt_state   = os_up_unqueued;
 oneshot_state os_gui_state   = os_up_unqueued;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    /* if (!process_achordion(keycode, record)) { */
-    /*     return false; */
-    /* } */
     if (!process_layer_lock(keycode, record, LLOCK)) {
         return false;
     }
@@ -471,7 +469,6 @@ void matrix_scan_user(void) {
         rgblight_wakeup_animation();
     }
 #endif
-    /* achordion_task(); */
 }
 
 void housekeeping_task_user(void) {
@@ -558,24 +555,3 @@ void caps_word_set_user(bool active) {
 #endif
 }
 
-bool achordion_chord(uint16_t tap_hold_keycode, keyrecord_t *tap_hold_record, uint16_t other_keycode,
-                     keyrecord_t *other_record) {
-    switch (tap_hold_keycode) {
-        QUICK_TAP_HOLDS
-        case LT(SYMBOL, KC_R):
-            return true;
-    }
-    return achordion_opposite_hands(tap_hold_record, other_record);
-}
-
-uint16_t achordion_timeout(uint16_t tap_hold_keycode) {
-    return 300;
-}
-
-uint16_t achordion_streak_chord_timeout(uint16_t tap_hold_keycode, uint16_t next_keycode) {
-    switch (tap_hold_keycode) {
-        QUICK_TAP_HOLDS
-        return 0;
-    }
-    return 80;
-}
