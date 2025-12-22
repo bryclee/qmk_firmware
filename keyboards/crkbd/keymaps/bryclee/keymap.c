@@ -67,9 +67,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       /* QK_REP,    KC_QUOT, KC_COMM,    KC_DOT,    KKC_QUOT,    C_P,    KC_G,                         KC_B,    KC_M, KC_W,  KC_X, KC_Z,  CW_TOGG, */
       // original gust below, attempting to mod for col stag keyboard
-      DF(QWERTY),    KC_COMM,    KC_DOT,    KC_P,    KC_G,    KC_QUOT,                         KC_B,    KC_M, KC_W,  KC_X, KC_Z,  CW_TOGG,
+      QK_REP,    KC_COMM,    KC_DOT,    KC_P,    KC_G,    KC_QUOT,                         KC_B,    KC_M, KC_W,  KC_X, KC_Z,  CW_TOGG,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          QK_REP, LT(NAV, KC_TAB),  KC_SPC,     LT(NUMPAD, KC_ENT), LT(SYMBOL, KC_BSPC), KC_DELETE
+                                          DF(QWERTY), LT(NAV, KC_TAB),  KC_SPC,     LT(NUMPAD, KC_ENT), LT(SYMBOL, KC_BSPC), KC_DELETE
                                       //`-----------MOMO---------------'  `--------------------------'
   ),
 
@@ -555,3 +555,16 @@ void caps_word_set_user(bool active) {
 #endif
 }
 
+uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t* record,
+                           uint16_t prev_keycode) {
+    if (is_flow_tap_key(keycode) && is_flow_tap_key(prev_keycode)) {
+        switch (keycode) {
+            case RSFT_T(KC_H):
+            case LSFT_T(KC_C):
+                return 0;
+        }
+
+        return FLOW_TAP_TERM;
+    }
+    return 0;
+}
