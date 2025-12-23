@@ -16,6 +16,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "config.h"
 #include QMK_KEYBOARD_H
 
 #include "keycodes.h"
@@ -207,11 +208,11 @@ const rgblight_segment_t PROGMEM rgb_sym_layer[] =
 const rgblight_segment_t PROGMEM rgb_adjust_layer[] =
     RGBLIGHT_LAYER_SEGMENTS({10, 3, _GREEN}, {17, 2, _GREEN}, {23, 1, _GREEN}, {34, 3, _GREEN});
 const rgblight_segment_t PROGMEM rgb_game_layer[] = RGBLIGHT_LAYER_SEGMENTS({14, 1, HSV_RED});
-const rgblight_segment_t PROGMEM rgb_caps_word[] = RGBLIGHT_LAYER_SEGMENTS({0, 54, HSV_RED});
-const rgblight_segment_t PROGMEM rgb_osm_ctl[]   = RGBLIGHT_LAYER_SEGMENTS({22, 1, HSV_WHITE}, {49, 1, HSV_WHITE});
-const rgblight_segment_t PROGMEM rgb_osm_gui[]   = RGBLIGHT_LAYER_SEGMENTS({19, 1, HSV_WHITE}, {46, 1, HSV_WHITE});
-const rgblight_segment_t PROGMEM rgb_osm_alt[]   = RGBLIGHT_LAYER_SEGMENTS({16, 1, HSV_WHITE}, {43, 1, HSV_WHITE});
-const rgblight_segment_t PROGMEM rgb_osm_sft[]   = RGBLIGHT_LAYER_SEGMENTS({11, 1, HSV_WHITE}, {38, 1, HSV_WHITE});
+const rgblight_segment_t PROGMEM rgb_caps_word[]  = RGBLIGHT_LAYER_SEGMENTS({0, 54, HSV_RED});
+const rgblight_segment_t PROGMEM rgb_osm_ctl[]    = RGBLIGHT_LAYER_SEGMENTS({22, 1, HSV_WHITE}, {49, 1, HSV_WHITE});
+const rgblight_segment_t PROGMEM rgb_osm_gui[]    = RGBLIGHT_LAYER_SEGMENTS({19, 1, HSV_WHITE}, {46, 1, HSV_WHITE});
+const rgblight_segment_t PROGMEM rgb_osm_alt[]    = RGBLIGHT_LAYER_SEGMENTS({16, 1, HSV_WHITE}, {43, 1, HSV_WHITE});
+const rgblight_segment_t PROGMEM rgb_osm_sft[]    = RGBLIGHT_LAYER_SEGMENTS({11, 1, HSV_WHITE}, {38, 1, HSV_WHITE});
 
 const rgblight_segment_t *const PROGMEM rgb_layers[] =
     RGBLIGHT_LAYERS_LIST(rgb_numpad_layer, rgb_nav_layer, rgb_sym_layer, rgb_adjust_layer, rgb_game_layer,
@@ -555,13 +556,16 @@ void caps_word_set_user(bool active) {
 #endif
 }
 
-uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t* record,
-                           uint16_t prev_keycode) {
+uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t *record, uint16_t prev_keycode) {
     if (is_flow_tap_key(keycode) && is_flow_tap_key(prev_keycode)) {
-        switch (keycode) {
-            case RSFT_T(KC_H):
-            case LSFT_T(KC_C):
-                return 0;
+        // switch (keycode) {
+        //     case RSFT_T(KC_H):
+        //     case LSFT_T(KC_C):
+        //         return 0;
+        // }
+        switch (prev_keycode) {
+            case KC_SPC:
+                return FLOW_TAP_TERM - 25;
         }
 
         return FLOW_TAP_TERM;
